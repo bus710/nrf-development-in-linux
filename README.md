@@ -180,12 +180,10 @@ $ mkdir example_blinky
 
 To adjust the Makefile for our project, which has the new and simple structure:
 
-* SDK\_ROOT := $HOME/nRF5
+* SDK\_ROOT := $\(HOME\)/nRF5
 * PROJECT\_DIR := .
 * For INC\_FOLDERS, remove a dot of ../config
 * For OPT, Optimization level can be 0 \(if you want\)
-
-
 
 ## Get Eclipse and MCU/vrapper Packages
 
