@@ -270,8 +270,13 @@ Finally it is time to try debugging.
 
 * Go to Run &gt; Debug Configurations
 * Right click **GDB SEGGER J-Link Debugging** and **New**
+* Click the second tap "Debugger"
+* Actual executable for the server should be "JLinkGDBServerCLExe"
+* Device name should be "nrf52"
+* Actual executable for the client should be "arm-none-eabi-gdb"
+* Click Apply and Debug
 
-
+![](/assets/20180201f.png)
 
 ## Set Debug Launcher in C/C++ Perspective
 
