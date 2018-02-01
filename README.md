@@ -2,7 +2,7 @@
 
 If you need/want to have nRF development environment in Linux...
 
-Writer
+## Writer
 
 * SJ Kim
 * &lt;bus710@gmail.com&gt;
@@ -10,7 +10,7 @@ Writer
 ## Referenece
 
 * [https://leavesified.wordpress.com/2016/03/24/setup-nrf51-development-on-linux/](https://leavesified.wordpress.com/2016/03/24/setup-nrf51-development-on-linux/)
-* https://bus710.gitbooks.io/ble-system-development-with-nrf52-gcc-and-eclipse/content/ 
+* [https://bus710.gitbooks.io/ble-system-development-with-nrf52-gcc-and-eclipse/content/](https://bus710.gitbooks.io/ble-system-development-with-nrf52-gcc-and-eclipse/content/) 
 
 ## Environment
 
