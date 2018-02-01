@@ -185,6 +185,13 @@ To adjust the Makefile for our project, which has the new and simple structure:
 * For INC\_FOLDERS, remove a dot of ../config
 * For OPT, Optimization level can be 0 \(if you want\)
 
+And try compiling:
+
+```
+$ cd THE_PROJECT_DIRECTORY
+$ make
+```
+
 ## Get Eclipse and MCU/vrapper Packages
 
 ## Import the Example to Eclipse
