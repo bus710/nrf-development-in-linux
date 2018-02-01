@@ -117,24 +117,16 @@ $ nrfjprog -f NRF52 --program s132_nrf52_5.0.0_softdevice.hex --chiperase
 
 ## Modify Makefile.Posix for SDK
 
-
-
 Getting Information
 
-
-
 ```
-
-
 $ which arm-none-eabi-gcc
 
 >> /usr/bin/arm-none-eabi-gcc
 
 $ arm-none-eabi-gcc -v
 
->> gcc version 7.2.1 20170904 
-
-
+>> gcc version 7.2.1 20170904
 ```
 
 Editing Makefile
@@ -152,9 +144,35 @@ GNU_PREFIX := arm-none-eabi
 
 ## Compile an Example
 
+Now we can just compile an example.
+
 ```
 $ cd ~/nRF5/examples/peripheral/blinky/pca10040/s132/armgcc
-$ make 
+$ make
+```
+
+However, it is highly recommended to scratch to make a slim project structure like this:
+
+    $ tree
+    .
+    |-- Makefile
+    |-- blinky_gcc_nrf52.ld
+    |-- include
+    |   |-- arm_acle.h
+    |   `-- 이하 생략
+    |-- main.c
+    `-- sdk_config.h
+
+    1 directory, 23 files
+
+To do so,
+
+```
+$ cd SOMEWHERE
+$ mkdir example_blinky
+
+// Scratch files from ~/nRF5/examples/peripheral/blinky/pca10040/s132/armgcc
+// But the include might be located at /usr/lib/gcc/arm-none-eabi/7.2.1/include
 ```
 
 ## Get Eclipse and MCU/vrapper Packages
@@ -162,8 +180,6 @@ $ make
 ## Import the Example to Eclipse
 
 ## Set Debug Perspective with nrfjprog Script
-
-
 
 
 
