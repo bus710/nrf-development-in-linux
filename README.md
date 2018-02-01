@@ -14,6 +14,7 @@
 * Get ARM-GCC Compiler
 * Get nRF SDK
 * Get JLink Package
+* Get nrfjprog
 * Modify Makefile.Posix for SDK
 * Flash SoftDevice
 * Compile an Example
@@ -70,7 +71,7 @@ $ sudo dpkg -i JLink_Linux_V630_x86_64.deb
 To test it, connect your eval board or JLink to your PC and...
 
 ```
-$ JLinkExe -device nrf52832 -speed 1000 -if swd
+$ JLinkExe -device nrf52 -speed 1000 -if swd
 
 // Then will see
 
@@ -87,13 +88,27 @@ Hardware version: V1.00
 S/N: XXXXXXXXX
 VTref = 3.300V
 
+> connect
+> exit
 ```
 
-To erase SoftDevice...
+## Get nrfjprog
+
+Download **nRF5x-Command-Line-Tools\_9\_7\_2\_Linux-x86\_64.tar** from https://www.nordicsemi.com/eng/nordic/Products/nRF52840/nRF5x-Command-Line-Tools-Linux64/58852
 
 ```
-$ cd ~/nRF5/components/softdevice/s132/hex/
-$ JLinkExe -device nrf52832 -speed 1000 -if swd
+$ mkdir !/nRF5Tools
+$ cd nRF5Tools
+$ cp ~/Downloads/nRF5x-Command-Line-Tools_9_7_2_Linux-x86_64.tar ~/nRF5Tools
+$ tar xvf nRF5x-Command-Line-Tools_9_7_2_Linux-x86_64.tar
+
+// Need to add nrfjprog directory path to PATH.
+// For example, I added:
+
+// export PATH=$PATH:~/nRF5Tools/nrgjprog
+// export PATH=$PATH:~/nRF5Tools/mergehex
+
+
 ```
 
 
