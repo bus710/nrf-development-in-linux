@@ -30,7 +30,8 @@ If you need/want to have nRF development environment in Linux...
 * Get Eclipse and MCU/vrapper Packages
 * Import the Example to Eclipse
 * Set Build Option and Parser Configuration
-* Set Debug Perspective with nrfjprog Script
+* Set Debug Configuration in Eclipse
+* Set Debug Launcher in C/C++ Perspective
 
 ### Get Basic Tools
 
@@ -217,9 +218,10 @@ To set the tool chain and j-link's path:
 
 * Run Eclipse
 * Go to Window &gt; Preferences &gt; MCU &gt; Global ARM Toolchains Paths
-* Set the path to /usr/bin
+* Set the path to **/usr/bin**
 * Go to Window &gt; Preferences &gt; MCU &gt; Global SERGGER J-Link Paths
-* Set the path to /opt/SEGGER/JLink
+* Set the executable name to **JLinkGDBServerCLExe**
+* Set the path to **/opt/SEGGER/JLink**
 
 ## Import the Example to Eclipse
 
@@ -262,7 +264,22 @@ Everything is done!
 
 Go to Project &gt; Clean. That will clean and build the project.
 
-## Set Debug Perspective with nrfjprog Script
+## Set Debug Configuration in Eclipse
+
+Finally it is time to try debugging.
+
+
+
+## Set Debug Launcher in C/C++ Perspective
+
+Sometimes C/C++ Perspective doesn't show Debug Launch button on its tap.
+
+* Go to Window &gt; Perspective &gt; Customize Perspective &gt; Tool Bar Visibility
+* Activate Debug Item in the list.
+
+
+
+
 
 
 
