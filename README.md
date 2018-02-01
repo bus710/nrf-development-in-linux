@@ -4,7 +4,9 @@
 
 * [https://leavesified.wordpress.com/2016/03/24/setup-nrf51-development-on-linux/](https://leavesified.wordpress.com/2016/03/24/setup-nrf51-development-on-linux/)
 
+## Environment
 
+* Mint Linux 18.3 64bit
 
 ## Todo
 
