@@ -14,9 +14,8 @@
 * Get ARM-GCC Compiler
 * Get nRF SDK
 * Get JLink Package
-* Get nrfjprog
+* Get nrfjprog and Flash SoftDevice
 * Modify Makefile.Posix for SDK
-* Flash SoftDevice
 * Compile an Example
 * Get Eclipse and MCU/vrapper Packages
 * Import the Example to Eclipse
@@ -92,7 +91,7 @@ VTref = 3.300V
 > exit
 ```
 
-## Get nrfjprog
+## Get nrfjprog and Flash Softdevice
 
 Download **nRF5x-Command-Line-Tools\_9\_7\_2\_Linux-x86\_64.tar** from [https://www.nordicsemi.com/eng/nordic/Products/nRF52840/nRF5x-Command-Line-Tools-Linux64/58852](https://www.nordicsemi.com/eng/nordic/Products/nRF52840/nRF5x-Command-Line-Tools-Linux64/58852)
 
@@ -115,6 +114,56 @@ To rewrite a softdevice,
 $ cd ~/nRF5/components/softdevice/s132/hex
 $ nrfjprog -f NRF52 --program s132_nrf52_5.0.0_softdevice.hex --chiperase
 ```
+
+## Modify Makefile.Posix for SDK
+
+
+
+Getting Information
+
+
+
+```
+
+
+$ which arm-none-eabi-gcc
+
+>> /usr/bin/arm-none-eabi-gcc
+
+$ arm-none-eabi-gcc -v
+
+>> gcc version 7.2.1 20170904 
+
+
+```
+
+Editing Makefile
+
+```
+$ cd ~/nRF5/components/toolchain/gcc
+$ vi Makefile.posix
+
+// Then make the file looks like based on the information we got:
+
+GNU_INSTALL_ROOT := /usr/bin/
+GNU_VERSION := 7.2.1
+GNU_PREFIX := arm-none-eabi
+```
+
+## Compile an Example
+
+```
+$ cd ~/nRF5/examples/peripheral/blinky/pca10040/s132/armgcc
+$ make 
+```
+
+## Get Eclipse and MCU/vrapper Packages
+
+## Import the Example to Eclipse
+
+## Set Debug Perspective with nrfjprog Script
+
+
 
 
 
