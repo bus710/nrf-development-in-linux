@@ -94,7 +94,7 @@ VTref = 3.300V
 
 ## Get nrfjprog
 
-Download **nRF5x-Command-Line-Tools\_9\_7\_2\_Linux-x86\_64.tar** from https://www.nordicsemi.com/eng/nordic/Products/nRF52840/nRF5x-Command-Line-Tools-Linux64/58852
+Download **nRF5x-Command-Line-Tools\_9\_7\_2\_Linux-x86\_64.tar** from [https://www.nordicsemi.com/eng/nordic/Products/nRF52840/nRF5x-Command-Line-Tools-Linux64/58852](https://www.nordicsemi.com/eng/nordic/Products/nRF52840/nRF5x-Command-Line-Tools-Linux64/58852)
 
 ```
 $ mkdir !/nRF5Tools
@@ -107,8 +107,13 @@ $ tar xvf nRF5x-Command-Line-Tools_9_7_2_Linux-x86_64.tar
 
 // export PATH=$PATH:~/nRF5Tools/nrgjprog
 // export PATH=$PATH:~/nRF5Tools/mergehex
+```
 
+To rewrite a softdevice,
 
+```
+$ cd ~/nRF5/components/softdevice/s132/hex
+$ nrfjprog -f NRF52 --program s132_nrf52_5.0.0_softdevice.hex --chiperase
 ```
 
 
