@@ -42,7 +42,7 @@ $ arm-none-eabi-gcc -v
 
 ## Get nRF SDK
 
-Download the compressed file from https://developer.nordicsemi.com/nRF51\_SDK/
+Download the compressed file from [https://developer.nordicsemi.com/nRF51\_SDK/](https://developer.nordicsemi.com/nRF51_SDK/)
 
 I downloaded:
 
@@ -59,7 +59,7 @@ $ unzip nRF5_SDK_14.2.0_offline_doc.zip -d ~/Desktop/offline_doc
 
 ### Get JLink Package
 
-Download **J-Link Software and Documentation pack for Linux, DEB Installer, 64-bit **from https://www.segger.com/downloads/jlink/\#J-LinkSoftwareAndDocumentationPack 
+Download **J-Link Software and Documentation pack for Linux, DEB Installer, 64-bit **from [https://www.segger.com/downloads/jlink/\#J-LinkSoftwareAndDocumentationPack](https://www.segger.com/downloads/jlink/#J-LinkSoftwareAndDocumentationPack)
 
 Currently the version is 6.30a
 
@@ -71,6 +71,22 @@ To test it, connect your eval board or JLink to your PC and...
 
 ```
 $ JLinkExe -device nrf52832 -speed 1000 -if swd
+
+// Then will see
+
+SEGGER J-Link Commander V6.30a (Compiled Jan 31 2018 18:14:21)
+DLL version V6.30a, compiled Jan 31 2018 18:14:14
+
+Connecting to J-Link via USB...Updating firmware:  J-Link OB-SAM3U128-V2-NordicSemi compiled Jan 12 2018 16:05:20
+Replacing firmware: J-Link OB-SAM3U128-V2-NordicSemi compiled Jul 24 2017 17:30:12
+Waiting for new firmware to boot
+New firmware booted successfully
+O.K.
+Firmware: J-Link OB-SAM3U128-V2-NordicSemi compiled Jan 12 2018 16:05:20
+Hardware version: V1.00
+S/N: XXXXXXXXX
+VTref = 3.300V
+
 ```
 
 To erase SoftDevice...
