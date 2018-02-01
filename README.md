@@ -285,5 +285,17 @@ Sometimes C/C++ Perspective doesn't show Debug Launch button on its tap.
 * Go to Window &gt; Perspective &gt; Customize Perspective &gt; Tool Bar Visibility
 * Activate Debug Item in the list.
 
+## Conclusion
 
+So far we followed this short manual to set up nRF development environment in Linux.
+
+In the manual, 
+
+* Downloaded the compiler, IDE, and SDK
+* Learned how to make your own project by scratching
+* Compiled and debugged the project.
+
+As software changes everyday, the setup can be changed as well. However the basic step might be not very different.
+
+If you are a BLE-MCU engineer, this setting and KiCAD and Draft Sight might be helpful to build up a system to develop IoT edge device.
 
