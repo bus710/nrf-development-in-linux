@@ -17,6 +17,7 @@
 * Get nrfjprog and Flash SoftDevice
 * Modify Makefile.Posix for SDK
 * Compile an Example
+* Edit Makefile for the scratched project
 * Get Eclipse and MCU/vrapper Packages
 * Import the Example to Eclipse
 * Set Debug Perspective with nrfjprog Script
@@ -174,6 +175,17 @@ $ mkdir example_blinky
 // Scratch files from ~/nRF5/examples/peripheral/blinky/pca10040/s132/armgcc
 // But the include might be located at /usr/lib/gcc/arm-none-eabi/7.2.1/include
 ```
+
+## Edit Makefile for the scratched project
+
+To adjust the Makefile for our project, which has the new and simple structure:
+
+* SDK\_ROOT := $HOME/nRF5
+* PROJECT\_DIR := .
+* For INC\_FOLDERS, remove a dot of ../config
+* For OPT, Optimization level can be 0 \(if you want\)
+
+
 
 ## Get Eclipse and MCU/vrapper Packages
 
