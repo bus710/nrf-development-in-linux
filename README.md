@@ -1,3 +1,8 @@
-# My Awesome Book
+# nRF Development in Linux
 
-This file file serves as your book's preface, a great place to describe your book's content and ideas.
+## Referenece
+
+* https://leavesified.wordpress.com/2016/03/24/setup-nrf51-development-on-linux/
+
+
+
