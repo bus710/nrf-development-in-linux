@@ -1,5 +1,7 @@
 # nRF Development in Linux
 
+If you need/want to have nRF development environment in Linux...
+
 ## Referenece
 
 * [https://leavesified.wordpress.com/2016/03/24/setup-nrf51-development-on-linux/](https://leavesified.wordpress.com/2016/03/24/setup-nrf51-development-on-linux/)
