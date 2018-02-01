@@ -233,13 +233,25 @@ Parser Option should be changed:
 
 * Go to Project &gt; Properties &gt; C/C++ General &gt; Preprocessor Include Pathes, Macros etc.
 * Go to Providers tap &gt; Click CDT GCC Build Output Parser Item
-* Change Compiler command pattern \( \(.\*gcc\)\|\(.\*\[gc\]\+\+\) \)
+* Change Compiler command pattern
 
 ![](/assets/20180201b.png)
 
 ![](/assets/20180201c.png)
 
+Compiler Option should be changed:
 
+* Go to Project &gt; Properties &gt; C/C++ General &gt; Preprocessor Include Pathes, Macros etc.
+* Go to Providers tap &gt; Click CDT ARM Cross GCC Build-in Compiler Settings
+* Change Command to get compiler specs
+
+![](/assets/20180201d.png)
+
+![](/assets/20180201e.png)
+
+Everything is done!
+
+Go to Project &gt; Clean. That will clean and build the project.
 
 ## Set Debug Perspective with nrfjprog Script
 
