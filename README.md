@@ -20,6 +20,7 @@
 * Edit Makefile for the scratched project
 * Get Eclipse and MCU/vrapper Packages
 * Import the Example to Eclipse
+* Set Parser Configuration
 * Set Debug Perspective with nrfjprog Script
 
 ### Get Basic Tools
@@ -196,7 +197,32 @@ Then the \_build directory might have some new image files for debug.
 
 ## Get Eclipse and MCU/vrapper Packages
 
+To install minimum dev environment:
+
+* Get Eclipse Neon 3 \(Not Oxygen or Luna\).
+* Extract it and run Eclipse\_Inst
+* Once it is done, go help &gt; Market Place.
+* Search and install MCU and vrapper
+
+To set the tool chain and j-link's path:
+
+* Run Eclipse
+* Go to Window &gt; Preferences &gt; MCU &gt; Global ARM Toolchains Paths
+* Set the path to /usr/bin
+* Go to Window &gt; Preferences &gt; MCU &gt; Global SERGGER J-Link Paths
+* Set the path to /opt/SEGGER/JLink
+
 ## Import the Example to Eclipse
+
+To import the example project we made:
+
+* File &gt; New &gt; Project 
+* In the Wizard's first screen, C/C++ &gt; Makefile project with existing file
+* In the Wizard's second screen, browse the project location and select ARM GCC.
+
+## Set Parser Configuration
+
+
 
 ## Set Debug Perspective with nrfjprog Script
 
