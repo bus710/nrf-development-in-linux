@@ -192,6 +192,8 @@ $ cd THE_PROJECT_DIRECTORY
 $ make
 ```
 
+Then the \_build directory might have some new image files for debug.
+
 ## Get Eclipse and MCU/vrapper Packages
 
 ## Import the Example to Eclipse
