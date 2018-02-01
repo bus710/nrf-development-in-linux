@@ -268,6 +268,9 @@ Go to Project &gt; Clean. That will clean and build the project.
 
 Finally it is time to try debugging.
 
+* Go to Run &gt; Debug Configurations
+* Right click **GDB SEGGER J-Link Debugging** and **New**
+
 
 
 ## Set Debug Launcher in C/C++ Perspective
@@ -276,10 +279,6 @@ Sometimes C/C++ Perspective doesn't show Debug Launch button on its tap.
 
 * Go to Window &gt; Perspective &gt; Customize Perspective &gt; Tool Bar Visibility
 * Activate Debug Item in the list.
-
-
-
-
 
 
 
