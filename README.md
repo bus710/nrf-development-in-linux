@@ -7,6 +7,7 @@
 ## Environment
 
 * Mint Linux 18.3 64bit
+* nRF52832 DK board
 
 ## Index
 
