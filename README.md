@@ -20,7 +20,7 @@
 * Edit Makefile for the scratched project
 * Get Eclipse and MCU/vrapper Packages
 * Import the Example to Eclipse
-* Set Parser Configuration
+* Set Build Option and Parser Configuration
 * Set Debug Perspective with nrfjprog Script
 
 ### Get Basic Tools
@@ -183,7 +183,7 @@ To adjust the Makefile for our project, which has the new and simple structure:
 
 * SDK\_ROOT := $\(HOME\)/nRF5
 * PROJECT\_DIR := .
-* For INC\_FOLDERS, remove a dot of ../config
+* For INC\_FOLDERS, remove the line for ../config
 * For OPT, Optimization level can be 0 \(if you want\)
 
 And try compiling:
@@ -220,7 +220,24 @@ To import the example project we made:
 * In the Wizard's first screen, C/C++ &gt; Makefile project with existing file
 * In the Wizard's second screen, browse the project location and select ARM GCC.
 
-## Set Parser Configuration
+## Set Build Option and Parser Configuration
+
+Build Option should be changed:
+
+* Go to Project &gt; Properties &gt; C/C++ Build &gt; Builder Settings &gt; Build Command
+* Edit it as the image \(make VERBOSE=1\)
+
+![](/assets/20180201a.png)
+
+Parser Option should be changed:
+
+* Go to Project &gt; Properties &gt; C/C++ General &gt; Preprocessor Include Pathes, Macros etc.
+* Go to Providers tap &gt; Click CDT GCC Build Output Parser Item
+* Change Compiler command pattern \( \(.\*gcc\)\|\(.\*\[gc\]\+\+\) \)
+
+![](/assets/20180201b.png)
+
+![](/assets/20180201c.png)
 
 
 
