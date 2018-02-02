@@ -14,7 +14,7 @@ If you need/want to have nRF development environment in Linux...
 
 ## Environment
 
-* Mint Linux 18.3 64bit
+* Mint Linux 18.3 64bit \(or equivalent distro\)
 * nRF52832 DK board
 
 ## Index
