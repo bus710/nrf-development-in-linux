@@ -271,9 +271,9 @@ Finally it is time to try debugging.
 * Go to Run &gt; Debug Configurations
 * Right click **GDB SEGGER J-Link Debugging** and **New**
 * Click the second tap "Debugger"
-* Actual executable for the server should be "JLinkGDBServerCLExe"
-* Device name should be "nrf52"
-* Actual executable for the client should be "arm-none-eabi-gdb"
+* Actual executable for the server should be **"JLinkGDBServerCLExe"**
+* Device name should be **"nrf52"**
+* Actual executable for the client should be **"arm-none-eabi-gdb"**
 * Click Apply and Debug
 
 ![](/assets/20180201f.png)
@@ -289,7 +289,7 @@ Sometimes C/C++ Perspective doesn't show Debug Launch button on its tap.
 
 So far we followed this short manual to set up nRF development environment in Linux.
 
-In the manual, 
+In the manual,
 
 * Downloaded the compiler, IDE, and SDK
 * Learned how to make your own project by scratching
