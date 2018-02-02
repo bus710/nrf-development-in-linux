@@ -183,8 +183,15 @@ To do so,
 $ cd SOMEWHERE
 $ mkdir example_blinky
 
-// Scratch files from ~/nRF5/examples/peripheral/blinky/pca10040/s132/armgcc
-// But the include might be located at /usr/lib/gcc/arm-none-eabi/7.2.1/include
+// Scratch files
+//   ~/nRF5/examples/peripheral/blinky/
+//   ~/nRF5/examples/peripheral/blinky/pca10040/s132/armgcc
+
+// The include might be located at /usr/lib/gcc/arm-none-eabi/7.2.1/include
+
+// Also the files in 
+//   ~/nRF5/examples/peripheral/blinky/pca10040/blank/armgcc
+// are not really required since those need to be used when SoftDevice is not written.
 ```
 
 ## Edit Makefile for the scratched project
