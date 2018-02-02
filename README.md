@@ -108,7 +108,7 @@ VTref = 3.300V
 Download **nRF5x-Command-Line-Tools\_9\_7\_2\_Linux-x86\_64.tar** from [https://www.nordicsemi.com/eng/nordic/Products/nRF52840/nRF5x-Command-Line-Tools-Linux64/58852](https://www.nordicsemi.com/eng/nordic/Products/nRF52840/nRF5x-Command-Line-Tools-Linux64/58852)
 
 ```
-$ mkdir !/nRF5Tools
+$ mkdir ~/nRF5Tools
 $ cd nRF5Tools
 $ cp ~/Downloads/nRF5x-Command-Line-Tools_9_7_2_Linux-x86_64.tar ~/nRF5Tools
 $ tar xvf nRF5x-Command-Line-Tools_9_7_2_Linux-x86_64.tar
@@ -171,7 +171,7 @@ However, it is highly recommended to scratch to make a slim project structure li
     |-- blinky_gcc_nrf52.ld
     |-- include
     |   |-- arm_acle.h
-    |   `-- and more...
+    |   `-- (and more...)
     |-- main.c
     `-- sdk_config.h
 
@@ -183,7 +183,7 @@ To do so,
 $ cd SOMEWHERE
 $ mkdir example_blinky
 
-// Scratch files
+// Scratch files from
 //   ~/nRF5/examples/peripheral/blinky/
 //   ~/nRF5/examples/peripheral/blinky/pca10040/s132/armgcc
 
