@@ -171,7 +171,7 @@ However, it is highly recommended to scratch to make a slim project structure li
     |-- blinky_gcc_nrf52.ld
     |-- include
     |   |-- arm_acle.h
-    |   `-- 이하 생략
+    |   `-- and more...
     |-- main.c
     `-- sdk_config.h
 
