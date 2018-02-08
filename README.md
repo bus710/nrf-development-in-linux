@@ -32,6 +32,8 @@ If you need/want to have nRF development environment in Linux...
 * Set Build Option and Parser Configuration
 * Set Debug Configuration in Eclipse
 * Set Debug Launcher in C/C++ Perspective
+* Get Python tools
+* Conclusion
 
 ### Get Basic Tools
 
@@ -291,6 +293,18 @@ Sometimes C/C++ Perspective doesn't show Debug Launch button on its tap.
 
 * Go to Window &gt; Perspective &gt; Customize Perspective &gt; Tool Bar Visibility
 * Activate Debug Item in the list.
+
+## Get Python tools
+
+To test nRF fimware there are well known python tools - nrfutil and pybluez.
+
+Those should be used to update/test the firmware.
+
+```
+$ sudo apt install python-pip
+$ sudo pip install --ignore-installed six nrfutil
+$ sudo pip install pybluez
+```
 
 ## Conclusion
 
