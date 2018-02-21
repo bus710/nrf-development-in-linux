@@ -17,6 +17,8 @@ If you need/want to have nRF development environment in Linux...
 * Mint Linux 18.3 64bit \(or equivalent distro\)
 * nRF52832 DK board
 
+---
+
 ## Index
 
 * Get Basic Tools
@@ -34,6 +36,8 @@ If you need/want to have nRF development environment in Linux...
 * Set Debug Launcher in C/C++ Perspective
 * Get Python tools
 * Conclusion
+
+---
 
 ### Get Basic Tools
 
@@ -129,6 +133,8 @@ $ cd ~/nRF5/components/softdevice/s132/hex
 $ nrfjprog -f NRF52 --program s132_nrf52_5.0.0_softdevice.hex --chiperase
 ```
 
+---
+
 ## Modify Makefile.Posix for SDK
 
 Getting Information
@@ -214,6 +220,8 @@ $ make
 
 Then the \_build directory might have some new image files for debug.
 
+---
+
 ## Get Eclipse and MCU/vrapper Packages
 
 To install minimum dev environment:
@@ -273,6 +281,8 @@ Everything is done!
 
 Go to Project &gt; Clean. That will clean and build the project.
 
+---
+
 ## Set Debug Configuration in Eclipse
 
 Finally it is time to try debugging.
@@ -305,6 +315,8 @@ $ sudo apt install python-pip
 $ sudo pip install --ignore-installed six nrfutil
 $ sudo pip install pybluez
 ```
+
+---
 
 ## Conclusion
 
