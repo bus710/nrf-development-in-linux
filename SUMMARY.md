@@ -1,4 +1,0 @@
-# Summary
-
-* [Installation](README.md)
-
