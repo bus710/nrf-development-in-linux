@@ -2,6 +2,10 @@
 
 If you need/want to have nRF development environment in Linux...
 
+<br/><br/>
+
+---
+
 ## Writer
 
 * SJ Kim
@@ -16,6 +20,8 @@ If you need/want to have nRF development environment in Linux...
 
 * Mint Linux 18.3 64bit \(or equivalent distro\)
 * nRF52832 DK board
+
+<br/><br/>
 
 ---
 
@@ -37,9 +43,11 @@ If you need/want to have nRF development environment in Linux...
 * Get Python tools
 * Conclusion
 
+<br/><br/>
+
 ---
 
-### Get Basic Tools
+## 1. Get Basic Tools
 
 ```
 $ sudo apt update
@@ -49,7 +57,9 @@ $ sudo apt install openocd
 $ sudo apt install git
 ```
 
-### Get ARM-GCC Compiler
+<br/><br/>
+
+## 2. Get ARM-GCC Compiler
 
 ```
 $ sudo add-apt-repository ppa:team-gcc-arm-embedded/ppa
@@ -58,7 +68,9 @@ $ sudo apt install gcc-arm-embedded
 $ arm-none-eabi-gcc -v
 ```
 
-## Get nRF SDK
+<br/><br/>
+
+## 3. Get nRF SDK
 
 Download the compressed file from [https://developer.nordicsemi.com/nRF51\_SDK/](https://developer.nordicsemi.com/nRF51_SDK/)
 
@@ -75,7 +87,9 @@ $ unzip nRF5_SDK_14.2.0_17b948a.zip -d ~/nRF5
 $ unzip nRF5_SDK_14.2.0_offline_doc.zip -d ~/Desktop/offline_doc
 ```
 
-### Get JLink Package
+<br/><br/>
+
+## 4. Get JLink Package
 
 Download **J-Link Software and Documentation pack for Linux, DEB Installer, 64-bit **from [https://www.segger.com/downloads/jlink/\#J-LinkSoftwareAndDocumentationPack](https://www.segger.com/downloads/jlink/#J-LinkSoftwareAndDocumentationPack)
 
@@ -109,7 +123,9 @@ VTref = 3.300V
 > exit
 ```
 
-## Get nrfjprog and Flash Softdevice
+<br/><br/>
+
+## 5. Get nrfjprog and Flash Softdevice
 
 Download **nRF5x-Command-Line-Tools\_9\_7\_2\_Linux-x86\_64.tar** from [https://www.nordicsemi.com/eng/nordic/Products/nRF52840/nRF5x-Command-Line-Tools-Linux64/58852](https://www.nordicsemi.com/eng/nordic/Products/nRF52840/nRF5x-Command-Line-Tools-Linux64/58852)
 
@@ -133,9 +149,9 @@ $ cd ~/nRF5/components/softdevice/s132/hex
 $ nrfjprog -f NRF52 --program s132_nrf52_5.0.0_softdevice.hex --chiperase
 ```
 
----
+<br/><br/>
 
-## Modify Makefile.Posix for SDK
+## 6. Modify Makefile.Posix for SDK
 
 Getting Information
 
@@ -162,7 +178,9 @@ GNU_VERSION := 7.2.1
 GNU_PREFIX := arm-none-eabi
 ```
 
-## Compile an Example
+<br/><br/>
+
+## 7. Compile an Example
 
 Now we can just compile an example.
 
@@ -202,7 +220,9 @@ $ mkdir example_blinky
 // are not really required since those need to be used when SoftDevice is not written.
 ```
 
-## Edit Makefile for the scratched project
+<br/><br/>
+
+## 8. Edit Makefile for the scratched project
 
 To adjust the Makefile for our project, which has the new and simple structure:
 
@@ -220,9 +240,10 @@ $ make
 
 Then the \_build directory might have some new image files for debug.
 
----
 
-## Get Eclipse and MCU/vrapper Packages
+<br/><br/>
+
+## 9. Get Eclipse and MCU/vrapper Packages
 
 To install minimum dev environment:
 
@@ -240,7 +261,9 @@ To set the tool chain and j-link's path:
 * Set the executable name to **JLinkGDBServerCLExe**
 * Set the path to **/opt/SEGGER/JLink**
 
-## Import the Example to Eclipse
+<br/><br/>
+
+## 10. Import the Example to Eclipse
 
 To import the example project we made:
 
@@ -248,7 +271,9 @@ To import the example project we made:
 * In the Wizard's first screen, C/C++ &gt; Makefile project with existing file
 * In the Wizard's second screen, browse the project location and select ARM GCC.
 
-## Set Build Option and Parser Configuration
+<br/><br/>
+
+## 11. Set Build Option and Parser Configuration
 
 Build Option should be changed:
 
@@ -281,9 +306,9 @@ Everything is done!
 
 Go to Project &gt; Clean. That will clean and build the project.
 
----
+<br/><br/>
 
-## Set Debug Configuration in Eclipse
+## 12. Set Debug Configuration in Eclipse
 
 Finally it is time to try debugging.
 
@@ -297,14 +322,18 @@ Finally it is time to try debugging.
 
 ![](/assets/20180201f.png)
 
-## Set Debug Launcher in C/C++ Perspective
+<br/><br/>
+
+## 13. Set Debug Launcher in C/C++ Perspective
 
 Sometimes C/C++ Perspective doesn't show Debug Launch button on its tap.
 
 * Go to Window &gt; Perspective &gt; Customize Perspective &gt; Tool Bar Visibility
 * Activate Debug Item in the list.
 
-## Get Python tools
+<br/><br/>
+
+## 14. Get Python tools
 
 To test nRF fimware there are well known python tools - nrfutil and pybluez.
 
@@ -315,6 +344,8 @@ $ sudo apt install python-pip
 $ sudo pip install --ignore-installed six nrfutil
 $ sudo pip install pybluez
 ```
+
+<br/><br/>
 
 ---
 
