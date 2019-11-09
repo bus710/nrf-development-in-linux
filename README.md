@@ -361,5 +361,5 @@ In the manual,
 
 As software changes everyday, the setup can be changed as well. However the basic step might be not very different.
 
-If you are a BLE-MCU engineer, this setting and KiCAD and Draft Sight might be helpful to build up a system to develop IoT edge device.
+If you are a BLE-MCU engineer, this nRF setup, KiCAD, and Draft Sight might be helpful to build up a system to develop IoT edge devices.
 
