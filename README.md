@@ -6,19 +6,9 @@ If you need/want to have nRF development environment in Linux...
 
 ---
 
-## Writer
-
-* SJ Kim
-* &lt;bus710@gmail.com&gt;
-
-## Referenece
-
-* [https://leavesified.wordpress.com/2016/03/24/setup-nrf51-development-on-linux/](https://leavesified.wordpress.com/2016/03/24/setup-nrf51-development-on-linux/)
-* [https://bus710.gitbooks.io/ble-system-development-with-nrf52-gcc-and-eclipse/content/](https://bus710.gitbooks.io/ble-system-development-with-nrf52-gcc-and-eclipse/content/) 
-
 ## Environment
 
-* Mint Linux 18.3 64bit \(or equivalent distro\)
+* Ubuntu Linux 19.10 Eoan 64bit \(or equivalent distro\)
 * nRF52832 DK board
 
 <br/><br/>
@@ -51,15 +41,20 @@ If you need/want to have nRF development environment in Linux...
 
 ```
 $ sudo apt update
-$ sudo apt install build-essential
-$ sudo apt install eclipse
-$ sudo apt install openocd
-$ sudo apt install git
+$ sudo apt install build-essential git libncurses5
+```
+
+If libncurses5 installation fails:
+
+```
+$ sudo apt --fix-broken install
 ```
 
 <br/><br/>
 
 ## 2. Get ARM-GCC Compiler
+
+For those who want the latest release of the compiler:
 
 ```
 $ sudo add-apt-repository ppa:team-gcc-arm-embedded/ppa
@@ -68,43 +63,48 @@ $ sudo apt install gcc-arm-embedded
 $ arm-none-eabi-gcc -v
 ```
 
+However, I installed the stable version since Eoan is not being supported yet:
+
+```
+$ sudo apt update
+$ sudo apt install gcc-arm-none-eabi
+$ arm-none-eabi-gcc -v
+```
+
 <br/><br/>
 
 ## 3. Get nRF SDK
 
-Download the compressed file from [https://developer.nordicsemi.com/nRF51\_SDK/](https://developer.nordicsemi.com/nRF51_SDK/)
+Download the compressed file from [https://developer.nordicsemi.com/nRF51_SDK/nRF5_SDK_v16.x.x/](https://developer.nordicsemi.com/nRF51_SDK/nRF5_SDK_v16.x.x/)
 
-I downloaded:
-
-* nRF5\_SDK\_14.2.0\_17b948a.zip
-* nRF5\_SDK\_14.2.0\_offline\_doc.zip
-
-Uncompress the files.
+I downloaded **nRF5_SDK_16.0.0_98a08e2.zip** and uncompressed the file:
 
 ```
-$ mkdir ~/nRF5 ~/Desktop/offline_doc
-$ unzip nRF5_SDK_14.2.0_17b948a.zip -d ~/nRF5
-$ unzip nRF5_SDK_14.2.0_offline_doc.zip -d ~/Desktop/offline_doc
+$ mkdir ~/nRF5
+$ unzip nRF5_SDK_16.0.0_98a08e2.zip -d ~/nRF5
 ```
 
 <br/><br/>
 
 ## 4. Get JLink Package
 
-Download **J-Link Software and Documentation pack for Linux, DEB Installer, 64-bit **from [https://www.segger.com/downloads/jlink/\#J-LinkSoftwareAndDocumentationPack](https://www.segger.com/downloads/jlink/#J-LinkSoftwareAndDocumentationPack)
+Download **J-Link Software and Documentation pack for Linux, DEB Installer, 64-bit** from [https://www.segger.com/downloads/jlink/\#J-LinkSoftwareAndDocumentationPack](https://www.segger.com/downloads/jlink/#J-LinkSoftwareAndDocumentationPack)
 
-Currently the version is 6.30a
+Currently the version is 6.54c:
 
 ```
-$ sudo dpkg -i JLink_Linux_V630_x86_64.deb
+$ sudo dpkg -i JLink_Linux_V654c_x86_64.deb
 ```
 
 To test it, connect your eval board or JLink to your PC and...
 
 ```
 $ JLinkExe -device nrf52 -speed 1000 -if swd
+```
 
-// Then will see
+Then will see:
+
+```
 
 SEGGER J-Link Commander V6.30a (Compiled Jan 31 2018 18:14:21)
 DLL version V6.30a, compiled Jan 31 2018 18:14:14
