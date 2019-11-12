@@ -17,27 +17,35 @@ If you need/want to have nRF development environment in Linux...
 
 ## Index
 
-* Get Basic Tools
-* Get ARM-GCC Compiler
-* Get nRF SDK
-* Get nrfjprog and Flash SoftDevice
-* Get JLink Package
-* Modify Makefile.Posix for SDK
-* Compile an Example
-* Edit Makefile for the scratched project
-* Get Eclipse and MCU/vrapper Packages
-* Import the Example to Eclipse
-* Set Build Option and Parser Configuration
-* Set Debug Configuration in Eclipse
-* Set Debug Launcher in C/C++ Perspective
-* Get Python tools
-* Conclusion
+1. Getting the SDK and tools
+   - Basic Tools
+   - Get ARM-GCC Compiler
+   - Get nRF SDK
+   - Get nrfjprog and Flash SoftDevice
+   - Get JLink Package (Optional)
+
+2. Building the example
+   - Modify Makefile.Posix for SDK
+   - Compile an Example
+   - Edit Makefile for the scratched project
+
+3. Setting VSCODE as the IDE 
+   * Get Eclipse and MCU/vrapper Packages
+   * Import the Example to Eclipse
+   * Set Build Option and Parser Configuration
+   * Set Debug Configuration in Eclipse
+   * Set Debug Launcher in C/C++ Perspective
+   * Get Python tools
+
+4. Conclusion
 
 <br/><br/>
 
 ---
 
-## 1. Get Basic Tools
+## 1. Getting the SDK and tools
+
+### Get Basic Tools
 
 ```
 $ sudo apt update
@@ -52,7 +60,7 @@ $ sudo apt --fix-broken install
 
 <br/><br/>
 
-## 2. Get ARM-GCC Compiler
+### Get ARM-GCC Compiler
 
 For those who want the latest release of the compiler:
 
@@ -73,20 +81,20 @@ $ arm-none-eabi-gcc -v
 
 <br/><br/>
 
-## 3. Get nRF SDK
+### Get nRF SDK
 
 Download the compressed file from [https://developer.nordicsemi.com/nRF51_SDK/nRF5_SDK_v16.x.x/](https://developer.nordicsemi.com/nRF51_SDK/nRF5_SDK_v16.x.x/)
 
 I downloaded **nRF5_SDK_16.0.0_98a08e2.zip** and uncompressed the file:
 
 ```
-$ mkdir ~/nRF5
-$ unzip nRF5_SDK_16.0.0_98a08e2.zip -d ~/nRF5
+$ mkdir ~/nRF5_SDK
+$ unzip nRF5_SDK_16.0.0_98a08e2.zip -d ~/nRF5_SDK
 ```
 
 <br/><br/>
 
-## 4. Get nrfjprog and Flash Softdevice
+### Get nrfjprog and Flash Softdevice
 
 Download **nRF5x-Command-Line-Tools** for Linux 64 bit from:
 - [https://www.nordicsemi.com/Software-and-tools/Development-Tools/nRF-Command-Line-Tools/Download#infotabs](https://www.nordicsemi.com/Software-and-tools/Development-Tools/nRF-Command-Line-Tools/Download#infotabs) 
@@ -120,7 +128,7 @@ Unknown command line option -h.
 To rewrite a softdevice,
 
 ```
-$ cd ~/nRF5/components/softdevice/s132/hex
+$ cd ~/nRF5_SDK/components/softdevice/s132/hex
 $ ls
 
 s132_nrf52_7.0.1_licence-agreement.txt  
@@ -131,7 +139,7 @@ $ nrfjprog -f NRF52 --program s132_nrf52_7.0.1_softdevice.hex --chiperase
 
 <br/><br/>
 
-## 5. Get JLink Package (Optional)
+### Get JLink Package (Optional)
 
 If Nordic's command line tool doesn't include the JLink package, follow below steps.
 
@@ -171,9 +179,11 @@ VTref = 3.300V
 
 <br/><br/>
 
-## 6. Modify Makefile.Posix for SDK
+## 2. Building the example
+  
+### Modify Makefile.Posix for SDK
 
-Getting Information
+Get the information of the installed compiler:
 
 ```
 $ which arm-none-eabi-gcc
@@ -185,14 +195,15 @@ $ arm-none-eabi-gcc -v
 >> gcc version 7.2.1 20170904
 ```
 
-Editing Makefile
+Edit Makefile:
 
 ```
-$ cd ~/nRF5/components/toolchain/gcc
+$ cd ~/nRF5_SDK/components/toolchain/gcc
 $ vi Makefile.posix
+```
 
-// Then make the file looks like based on the information we got:
-
+Then make the file looks like based on the information we got:
+```
 GNU_INSTALL_ROOT := /usr/bin/
 GNU_VERSION := 7.2.1
 GNU_PREFIX := arm-none-eabi
@@ -200,12 +211,12 @@ GNU_PREFIX := arm-none-eabi
 
 <br/><br/>
 
-## 7. Compile an Example
+### Compile an Example
 
 Now we can just compile an example.
 
 ```
-$ cd ~/nRF5/examples/peripheral/blinky/pca10040/s132/armgcc
+$ cd ~/nRF5_SDK/examples/peripheral/blinky/pca10040/s132/armgcc
 $ make
 ```
 
@@ -228,28 +239,29 @@ To do so,
 ```
 $ cd SOMEWHERE
 $ mkdir example_blinky
-
-// Scratch files from
-//   ~/nRF5/examples/peripheral/blinky/
-//   ~/nRF5/examples/peripheral/blinky/pca10040/s132/armgcc
-
-// The include might be located at /usr/lib/gcc/arm-none-eabi/7.2.1/include
-
-// Also the files in 
-//   ~/nRF5/examples/peripheral/blinky/pca10040/blank/armgcc
-// are not really required since those need to be used when SoftDevice is not written.
 ```
+
+Scratch files from:
+- ~/nRF5_SDK/examples/peripheral/blinky/
+- ~/nRF5_SDK/examples/peripheral/blinky/pca10040/s132/armgcc
+
+The include might be located at 
+- /usr/lib/gcc/arm-none-eabi/7.2.1/include
+
+Also the files are located in:
+- ~/nRF5_SDK/examples/peripheral/blinky/pca10040/blank/armgcc
+- are not really required since those need to be used when SoftDevice is not written.
 
 <br/><br/>
 
-## 8. Edit Makefile for the scratched project
+### Edit Makefile for the scratched project
 
 To adjust the Makefile for our project, which has the new and simple structure:
 
-* SDK\_ROOT := $\(HOME\)/nRF5
-* PROJECT\_DIR := .
-* For INC\_FOLDERS, remove the line for ../config
-* For OPT, Optimization level can be 0 \(if you want\)
+* SDK_ROOT := $(HOME)/nRF5_SDK
+* PROJECT_DIR := .
+* For INC_FOLDERS, remove the line for ../config
+* For OPT, Optimization level can be 0 (if you want)
 
 And try compiling:
 
@@ -258,12 +270,16 @@ $ cd THE_PROJECT_DIRECTORY
 $ make
 ```
 
-Then the \_build directory might have some new image files for debug.
+Then the _build directory might have some new image files for debug.
 
 
 <br/><br/>
 
-## 9. Get Eclipse and MCU/vrapper Packages
+## 3. Setting VSCODE as the IDE 
+
+WIP
+
+### Get Eclipse and MCU/vrapper Packages
 
 To install minimum dev environment:
 
@@ -283,7 +299,7 @@ To set the tool chain and j-link's path:
 
 <br/><br/>
 
-## 10. Import the Example to Eclipse
+### Import the Example to Eclipse
 
 To import the example project we made:
 
@@ -293,7 +309,7 @@ To import the example project we made:
 
 <br/><br/>
 
-## 11. Set Build Option and Parser Configuration
+### Set Build Option and Parser Configuration
 
 Build Option should be changed:
 
@@ -328,7 +344,7 @@ Go to Project &gt; Clean. That will clean and build the project.
 
 <br/><br/>
 
-## 12. Set Debug Configuration in Eclipse
+### Set Debug Configuration in Eclipse
 
 Finally it is time to try debugging.
 
@@ -344,7 +360,7 @@ Finally it is time to try debugging.
 
 <br/><br/>
 
-## 13. Set Debug Launcher in C/C++ Perspective
+### Set Debug Launcher in C/C++ Perspective
 
 Sometimes C/C++ Perspective doesn't show Debug Launch button on its tap.
 
@@ -353,7 +369,7 @@ Sometimes C/C++ Perspective doesn't show Debug Launch button on its tap.
 
 <br/><br/>
 
-## 14. Get Python tools
+### Get Python tools
 
 To test nRF fimware there are well known python tools - nrfutil and pybluez.
 
