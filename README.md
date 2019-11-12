@@ -45,7 +45,7 @@ If you need/want to have nRF development environment in Linux...
 
 ## 1. Getting the SDK and tools
 
-### Get Basic Tools
+### 1.1 Get Basic Tools
 
 ```
 $ sudo apt update
@@ -60,7 +60,7 @@ $ sudo apt --fix-broken install
 
 <br/><br/>
 
-### Get ARM-GCC Compiler
+### 1.2 Get ARM-GCC Compiler
 
 For those who want the latest release of the compiler:
 
@@ -81,7 +81,7 @@ $ arm-none-eabi-gcc -v
 
 <br/><br/>
 
-### Get nRF SDK
+### 1.3 Get nRF SDK
 
 Download the compressed file from [https://developer.nordicsemi.com/nRF51_SDK/nRF5_SDK_v16.x.x/](https://developer.nordicsemi.com/nRF51_SDK/nRF5_SDK_v16.x.x/)
 
@@ -94,10 +94,12 @@ $ unzip nRF5_SDK_16.0.0_98a08e2.zip -d ~/nRF5_SDK
 
 <br/><br/>
 
-### Get nrfjprog and Flash Softdevice
+### 1.4 Get nrfjprog and Flash Softdevice
 
 Download **nRF5x-Command-Line-Tools** for Linux 64 bit from:
-- [https://www.nordicsemi.com/Software-and-tools/Development-Tools/nRF-Command-Line-Tools/Download#infotabs](https://www.nordicsemi.com/Software-and-tools/Development-Tools/nRF-Command-Line-Tools/Download#infotabs) 
+- [https://www.nordicsemi.com](https://www.nordicsemi.com/Software-and-tools/Development-Tools/nRF-Command-Line-Tools/Download#infotabs)
+
+Run these commands to install the tools:
 
 ```
 $ tar xvf nRF-Command-Line-Tools_10_4_1_Linux-amd64.tar.gz
@@ -125,7 +127,7 @@ DLL version V6.50b, compiled Sep  6 2019 17:46:40
 Unknown command line option -h.
 ```
 
-To rewrite a softdevice,
+To flash a softdevice to a connected nRF board via JLink,
 
 ```
 $ cd ~/nRF5_SDK/components/softdevice/s132/hex
@@ -139,7 +141,7 @@ $ nrfjprog -f NRF52 --program s132_nrf52_7.0.1_softdevice.hex --chiperase
 
 <br/><br/>
 
-### Get JLink Package (Optional)
+### 1.5 Get JLink Package (Optional)
 
 If Nordic's command line tool doesn't include the JLink package, follow below steps.
 
@@ -183,7 +185,7 @@ VTref = 3.300V
 
 ## 2. Building the example
   
-### Modify Makefile.Posix for SDK
+### 2.1 Modify Makefile.Posix for SDK
 
 Get the information of the installed compiler:
 
@@ -213,7 +215,7 @@ GNU_PREFIX := arm-none-eabi
 
 <br/><br/>
 
-### Compile an Example
+### 2.2 Compile an Example
 
 Now we can just compile an example.
 
@@ -256,7 +258,7 @@ Also the files are located in:
 
 <br/><br/>
 
-### Edit Makefile for the scratched project
+### 2.3 Edit Makefile for the scratched project
 
 To adjust the Makefile for our project, which has the new and simple structure:
 
