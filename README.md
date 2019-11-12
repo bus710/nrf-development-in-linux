@@ -236,7 +236,7 @@ DONE nrf52832_xxaa
 
 <br/><br/>
 
-### 2.3 Simplifying the example
+### 2.3 Simplify the example
 
 However, it is highly recommended to scratch to make a slim project structure like this:
 
