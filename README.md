@@ -49,7 +49,7 @@ If you need/want to have nRF development environment in Linux...
 
 ```
 $ sudo apt update
-$ sudo apt install build-essential git libncurses5
+$ sudo apt install build-essential git libncurses5 gdb-multiarch
 ```
 
 If libncurses5 installation fails:
@@ -320,99 +320,116 @@ Then the _build directory might have some image files newly generated (hex and b
 
 ## 3. Setting VSCODE as the IDE 
 
-WIP
+### 3.1 Get VSCODE and some extensions
 
-### Get Eclipse and MCU/vrapper Packages
+Download the installer from:
+- https://code.visualstudio.com/download
 
-To install minimum dev environment:
+Some extensions are required:
+- C/C++
+- C++ Intellisense
+- Cortex-Debug
+- Vim (optional)
 
-* Get Eclipse Neon 3 \(Not Oxygen or Luna\).
-* Extract it and run Eclipse\_Inst
-* Once it is done, go help &gt; Market Place.
-* Search and install MCU and vrapper
+Once VSCODE and the extensions are ready:
 
-To set the tool chain and j-link's path:
+```
+$ cd example_blinky
+$ code .
+```
+ 
+<br/><br/>
 
-* Run Eclipse
-* Go to Window &gt; Preferences &gt; MCU &gt; Global ARM Toolchains Paths
-* Set the path to **/usr/bin**
-* Go to Window &gt; Preferences &gt; MCU &gt; Global SERGGER J-Link Paths
-* Set the executable name to **JLinkGDBServerCLExe**
-* Set the path to **/opt/SEGGER/JLink**
+### 3.2 Set Tasks.json for make/clean  
+  
+To generate a Tasks.json, 
+- Press **CTRL+Shift+P**. 
+- Then type **task**.
+- Lastly click **Tasks: Configure Task**.
+  
+Above action generates a file (Tasks.json) under .vscode.  
+By filling the json file, we can invoke make and make clean with shortcuts.
+  
+```json
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "make",
+            "command": "make",
+            "args": [
+                "VERBOSE=1"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "clean",
+            "command": "make",
+            "args": [
+                "clean"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": []
+        }
+    ]
+}
+```
+  
+With this configuration, we can use **CTRL+SHIFT+B** to open the task dialog and run make or clean.  
+  
+The detail can be found from MS' document:
+- [building-your-c-application-with-visual-studio-code](https://blogs.msdn.microsoft.com/vcblog/2016/10/24/building-your-c-application-with-visual-studio-code/).
+      
+<br/><br/>
+
+### 3.3 Set Launch.json for debugging
+  
+To generate a launch.json, 
+- Press **CTRL+Shift+P**. 
+- Then type **launch**.
+- Lastly click **Debug: Open launch.json** and **Cortex Debug**.
+  
+Above action generates a file (launch.json) under .vscode.  
+By filling the json file, we can invoke the arm-none-eabi-gdb and JLink GDB server.  
+  
+```json
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Cortex Debug",
+            "cwd": "${workspaceRoot}",
+            "executable": "./_build/nrf52832_xxaa.out",
+            "request": "launch",
+            "type": "cortex-debug",
+            "servertype": "jlink",
+            "device": "nrf52",
+            "interface": "swd",
+            "armToolchainPath": "/usr/bin",
+            "gdbpath": "/usr/bin/gdb-multiarch"
+        }
+    ]
+}
+```
+  
+With this configuration, we can use **F5** to start a debugging session.  
+  
+Two things need to be adjusted based on your project:
+- executable: THE_EXECUTABLE_NAME should ba updated.
+- device: the depends on the target MCU.
+  
+The detail can be found from the extension's website ([>>>](https://marcelball.ca/projects/cortex-debug/cortex-debug-launch-configurations/)).  
 
 <br/><br/>
 
-### Import the Example to Eclipse
-
-To import the example project we made:
-
-* File &gt; New &gt; Project 
-* In the Wizard's first screen, C/C++ &gt; Makefile project with existing file
-* In the Wizard's second screen, browse the project location and select ARM GCC.
-
-<br/><br/>
-
-### Set Build Option and Parser Configuration
-
-Build Option should be changed:
-
-* Go to Project &gt; Properties &gt; C/C++ Build &gt; Builder Settings &gt; Build Command
-* Edit it as the image \(make VERBOSE=1\)
-
-![](/assets/20180201a.png)
-
-Parser Option should be changed:
-
-* Go to Project &gt; Properties &gt; C/C++ General &gt; Preprocessor Include Pathes, Macros etc.
-* Go to Providers tap &gt; Click CDT GCC Build Output Parser Item
-* Change Compiler command pattern
-
-![](/assets/20180201b.png)
-
-![](/assets/20180201c.png)
-
-Compiler Option should be changed:
-
-* Go to Project &gt; Properties &gt; C/C++ General &gt; Preprocessor Include Pathes, Macros etc.
-* Go to Providers tap &gt; Click CDT ARM Cross GCC Build-in Compiler Settings
-* Change Command to get compiler specs
-
-![](/assets/20180201d.png)
-
-![](/assets/20180201e.png)
-
-Everything is done!
-
-Go to Project &gt; Clean. That will clean and build the project.
-
-<br/><br/>
-
-### Set Debug Configuration in Eclipse
-
-Finally it is time to try debugging.
-
-* Go to Run &gt; Debug Configurations
-* Right click **GDB SEGGER J-Link Debugging** and **New**
-* Click the second tap "Debugger"
-* Actual executable for the server should be **"JLinkGDBServerCLExe"**
-* Device name should be **"nrf52"**
-* Executable for the client should be **"arm-none-eabi-gdb"**
-* Click Apply and Debug
-
-![](/assets/20180201f.png)
-
-<br/><br/>
-
-### Set Debug Launcher in C/C++ Perspective
-
-Sometimes C/C++ Perspective doesn't show Debug Launch button on its tap.
-
-* Go to Window &gt; Perspective &gt; Customize Perspective &gt; Tool Bar Visibility
-* Activate Debug Item in the list.
-
-<br/><br/>
-
-### Get Python tools
+### 3.4 Get Python tools
 
 To test nRF fimware there are well known python tools - nrfutil and pybluez.
 
