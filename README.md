@@ -27,15 +27,14 @@ If you need/want to have nRF development environment in Linux...
 2. Building the example
    - Modify Makefile.Posix for SDK
    - Compile an Example
-   - Edit Makefile for the scratched project
+   - Simplify the example
+   - Edit Makefile for the simplified project
 
 3. Setting VSCODE as the IDE 
-   * Get Eclipse and MCU/vrapper Packages
-   * Import the Example to Eclipse
-   * Set Build Option and Parser Configuration
-   * Set Debug Configuration in Eclipse
-   * Set Debug Launcher in C/C++ Perspective
-   * Get Python tools
+   - Get VSCODE and some extensions
+   - Set Tasks.json for make/clean  
+   - Set Launch.json for debugging
+   - Get Python tools
 
 4. Conclusion
 
@@ -292,7 +291,7 @@ The include might be located at
 
 <br/><br/>
 
-### 2.4 Edit Makefile for the scratched project
+### 2.4 Edit Makefile for the simplified project
 
 To adjust the **Makefile** for our project, which has the new and simple structure:
 
