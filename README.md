@@ -298,10 +298,10 @@ To adjust the **Makefile** for our project, which has the new and simple structu
 
 * SDK_ROOT := $(HOME)/nRF52_SDK
 * PROJECT_DIR := .
-* For INC_FOLDERS, remove the line for ../config
+* For INC_FOLDERS, remove the line of ../config
 * For OPT, Optimization level can be 0 (if you want)
 
-And try compiling:
+Build again:
 
 ```
 $ cd ~/example_blinky
@@ -311,7 +311,7 @@ $ make
 DONE nrf52832_xxaa
 ```
 
-Then the _build directory might have some new image files (hex and bin) for debugging.
+Then the _build directory might have some image files newly generated (hex and bin) for debugging.
 
 
 <br/><br/>
