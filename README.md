@@ -20,8 +20,8 @@ If you need/want to have nRF development environment in Linux...
 * Get Basic Tools
 * Get ARM-GCC Compiler
 * Get nRF SDK
-* Get JLink Package
 * Get nrfjprog and Flash SoftDevice
+* Get JLink Package
 * Modify Makefile.Posix for SDK
 * Compile an Example
 * Edit Makefile for the scratched project
@@ -86,7 +86,54 @@ $ unzip nRF5_SDK_16.0.0_98a08e2.zip -d ~/nRF5
 
 <br/><br/>
 
-## 4. Get JLink Package
+## 4. Get nrfjprog and Flash Softdevice
+
+Download **nRF5x-Command-Line-Tools** for Linux 64 bit from:
+- [https://www.nordicsemi.com/Software-and-tools/Development-Tools/nRF-Command-Line-Tools/Download#infotabs](https://www.nordicsemi.com/Software-and-tools/Development-Tools/nRF-Command-Line-Tools/Download#infotabs) 
+
+```
+$ tar xvf nRF-Command-Line-Tools_10_4_1_Linux-amd64.tar.gz
+$ sudo dpkg -i JLink_Linux_V650b_x86_64.deb
+$ sudo dpkg -i nRF-Command-Line-Tools_10_4_1_Linux-amd64.deb
+```
+
+To check the version of installed tools:
+
+```
+$ nrfjprog -v
+
+nrfjprog version: 10.4.1 
+JLinkARM.dll version: 6.50b
+
+$ mergehex -v
+
+mergehex version: 10.4.1
+
+$ JLinkExe -v
+
+SEGGER J-Link Commander V6.50b (Compiled Sep  6 2019 17:46:52)
+DLL version V6.50b, compiled Sep  6 2019 17:46:40
+
+Unknown command line option -h.
+```
+
+To rewrite a softdevice,
+
+```
+$ cd ~/nRF5/components/softdevice/s132/hex
+$ ls
+
+s132_nrf52_7.0.1_licence-agreement.txt  
+s132_nrf52_7.0.1_softdevice.hex
+
+$ nrfjprog -f NRF52 --program s132_nrf52_7.0.1_softdevice.hex --chiperase
+```
+
+<br/><br/>
+
+## 5. Get JLink Package (Optional)
+
+If Nordic's command line tool doesn't include the JLink package, follow below steps.
 
 Download **J-Link Software and Documentation pack for Linux, DEB Installer, 64-bit** from [https://www.segger.com/downloads/jlink/\#J-LinkSoftwareAndDocumentationPack](https://www.segger.com/downloads/jlink/#J-LinkSoftwareAndDocumentationPack)
 
@@ -105,7 +152,6 @@ $ JLinkExe -device nrf52 -speed 1000 -if swd
 Then will see:
 
 ```
-
 SEGGER J-Link Commander V6.30a (Compiled Jan 31 2018 18:14:21)
 DLL version V6.30a, compiled Jan 31 2018 18:14:14
 
@@ -121,32 +167,6 @@ VTref = 3.300V
 
 > connect
 > exit
-```
-
-<br/><br/>
-
-## 5. Get nrfjprog and Flash Softdevice
-
-Download **nRF5x-Command-Line-Tools\_9\_7\_2\_Linux-x86\_64.tar** from [https://www.nordicsemi.com/eng/nordic/Products/nRF52840/nRF5x-Command-Line-Tools-Linux64/58852](https://www.nordicsemi.com/eng/nordic/Products/nRF52840/nRF5x-Command-Line-Tools-Linux64/58852)
-
-```
-$ mkdir ~/nRF5Tools
-$ cd nRF5Tools
-$ cp ~/Downloads/nRF5x-Command-Line-Tools_9_7_2_Linux-x86_64.tar ~/nRF5Tools
-$ tar xvf nRF5x-Command-Line-Tools_9_7_2_Linux-x86_64.tar
-
-// Need to add nrfjprog directory path to PATH.
-// For example, I added:
-
-// export PATH=$PATH:~/nRF5Tools/nrgjprog
-// export PATH=$PATH:~/nRF5Tools/mergehex
-```
-
-To rewrite a softdevice,
-
-```
-$ cd ~/nRF5/components/softdevice/s132/hex
-$ nrfjprog -f NRF52 --program s132_nrf52_5.0.0_softdevice.hex --chiperase
 ```
 
 <br/><br/>
