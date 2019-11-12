@@ -8,7 +8,7 @@ If you need/want to have nRF development environment in Linux...
 
 ## Environment
 
-* Ubuntu Linux 19.10 Eoan 64bit \(or equivalent distro\)
+* Ubuntu Linux 18.04 (or later) 64bit
 * nRF52832 DK board
 
 <br/><br/>
@@ -48,7 +48,10 @@ If you need/want to have nRF development environment in Linux...
 
 ```
 $ sudo apt update
-$ sudo apt install build-essential git libncurses5 gdb-multiarch
+$ sudo apt install build-essential \
+                    git \
+                    libncurses5 \
+                    gdb-multiarch
 ```
 
 If libncurses5 installation fails:
@@ -61,7 +64,15 @@ $ sudo apt --fix-broken install
 
 ### 1.2 Get ARM-GCC Compiler
 
-For those who want the latest release of the compiler:
+To install the stable version:
+
+```
+$ sudo apt update
+$ sudo apt install gcc-arm-none-eabi
+$ arm-none-eabi-gcc -v
+```
+
+To install the latest version (This may not support Eoan):
 
 ```
 $ sudo add-apt-repository ppa:team-gcc-arm-embedded/ppa
@@ -70,19 +81,12 @@ $ sudo apt install gcc-arm-embedded
 $ arm-none-eabi-gcc -v
 ```
 
-However, I installed the stable version since Eoan is not being supported yet:
-
-```
-$ sudo apt update
-$ sudo apt install gcc-arm-none-eabi
-$ arm-none-eabi-gcc -v
-```
-
 <br/><br/>
 
 ### 1.3 Get nRF SDK
 
-Download the compressed file from [https://developer.nordicsemi.com/nRF51_SDK/nRF5_SDK_v16.x.x/](https://developer.nordicsemi.com/nRF51_SDK/nRF5_SDK_v16.x.x/)
+Download the compressed file from:
+-  [https://developer.nordicsemi.com/nRF51_SDK/nRF5_SDK_v16.x.x/](https://developer.nordicsemi.com/nRF51_SDK/nRF5_SDK_v16.x.x/)
 
 I downloaded **nRF5_SDK_16.0.0_98a08e2.zip** and uncompressed the file:
 
