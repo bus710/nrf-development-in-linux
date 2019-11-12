@@ -179,6 +179,8 @@ VTref = 3.300V
 
 <br/><br/>
 
+---
+
 ## 2. Building the example
   
 ### Modify Makefile.Posix for SDK
@@ -274,6 +276,8 @@ Then the _build directory might have some new image files for debug.
 
 
 <br/><br/>
+
+---
 
 ## 3. Setting VSCODE as the IDE 
 
@@ -385,17 +389,17 @@ $ sudo pip install pybluez
 
 ---
 
-## Conclusion
+## 4. Conclusion
 
 So far we followed this short manual to set up nRF development environment in Linux.
 
-In the manual,
+In this walkthrough,
 
-* Downloaded the compiler, IDE, and SDK
-* Learned how to make your own project by scratching
-* Compiled and debugged the project.
+- Downloaded the compiler, IDE, and SDK
+- Learned how to make your own project by scratching
+- Compiled and debugged the project
+- Used VSCODE as the IDE
 
 As software changes everyday, the setup can be changed as well. However the basic step might be not very different.
 
-If you are a BLE-MCU engineer, this nRF setup, KiCAD, and Draft Sight might be helpful to build up a system to develop IoT edge devices.
 
