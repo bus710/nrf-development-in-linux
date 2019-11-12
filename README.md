@@ -391,8 +391,6 @@ $ sudo pip install pybluez
 
 ## 4. Conclusion
 
-So far we followed this short manual to set up nRF development environment in Linux.
-
 In this walkthrough,
 
 - Downloaded the compiler, IDE, and SDK
@@ -400,6 +398,4 @@ In this walkthrough,
 - Compiled and debugged the project
 - Used VSCODE as the IDE
 
-As software changes everyday, the setup can be changed as well. However the basic step might be not very different.
-
-
+...and everything could be well done in Linux!
