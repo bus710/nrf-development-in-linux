@@ -452,7 +452,7 @@ $ sudo pip install pybluez
 
 In this walkthrough,
 
-- Downloaded the compiler, IDE, and SDK
+- Downloaded and installed the SDK, tools, and IDE
 - Learned how to make your own project by scratching
 - Compiled and debugged the project
 - Used VSCODE as the IDE
