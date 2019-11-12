@@ -88,8 +88,8 @@ Download the compressed file from [https://developer.nordicsemi.com/nRF51_SDK/nR
 I downloaded **nRF5_SDK_16.0.0_98a08e2.zip** and uncompressed the file:
 
 ```
-$ mkdir ~/nRF5_SDK
-$ unzip nRF5_SDK_16.0.0_98a08e2.zip -d ~/nRF5_SDK
+$ mkdir ~/nRF52_SDK
+$ unzip nRF5_SDK_16.0.0_98a08e2.zip -d ~/nRF52_SDK
 ```
 
 <br/><br/>
@@ -124,13 +124,13 @@ $ JLinkExe -v
 SEGGER J-Link Commander V6.50b (Compiled Sep  6 2019 17:46:52)
 DLL version V6.50b, compiled Sep  6 2019 17:46:40
 
-Unknown command line option -h.
+Unknown command line option -h. (<= Don't worry about this)
 ```
 
 To flash a softdevice to a connected nRF board via JLink,
 
 ```
-$ cd ~/nRF5_SDK/components/softdevice/s132/hex
+$ cd ~/nRF52_SDK/components/softdevice/s132/hex
 $ ls
 
 s132_nrf52_7.0.1_licence-agreement.txt  
@@ -192,25 +192,27 @@ Get the information of the installed compiler:
 ```
 $ which arm-none-eabi-gcc
 
->> /usr/bin/arm-none-eabi-gcc
+/usr/bin/arm-none-eabi-gcc
 
 $ arm-none-eabi-gcc -v
 
->> gcc version 7.2.1 20170904
+...
+gcc version 7.3.1 20180622 (release) [ARM/embedded-7-branch revision 261907] (15:7-2018-q2-6) 
 ```
 
 Edit Makefile:
 
 ```
-$ cd ~/nRF5_SDK/components/toolchain/gcc
+$ cd ~/nRF52_SDK/components/toolchain/gcc
 $ vi Makefile.posix
 ```
 
 Then make the file looks like based on the information we got:
+
 ```
-GNU_INSTALL_ROOT := /usr/bin/
-GNU_VERSION := 7.2.1
-GNU_PREFIX := arm-none-eabi
+GNU_INSTALL_ROOT ?= /usr/bin/
+GNU_VERSION ?= 7.2.1
+GNU_PREFIX ?= arm-none-eabi
 ```
 
 <br/><br/>
@@ -220,49 +222,81 @@ GNU_PREFIX := arm-none-eabi
 Now we can just compile an example.
 
 ```
-$ cd ~/nRF5_SDK/examples/peripheral/blinky/pca10040/s132/armgcc
+$ cd ~/nRF52_SDK/examples/peripheral/blinky/pca10040/s132/armgcc
+$ ls 
+
+blinky_gcc_nrf52.ld 
+Makefile
+
 $ make
+
+...
+DONE nrf52832_xxaa
 ```
+
+<br/><br/>
+
+### 2.3 Simplifying the example
 
 However, it is highly recommended to scratch to make a slim project structure like this:
 
-    $ tree
-    .
-    |-- Makefile
-    |-- blinky_gcc_nrf52.ld
-    |-- include
-    |   |-- arm_acle.h
-    |   `-- (and more...)
-    |-- main.c
-    `-- sdk_config.h
+```
+$ tree 
+.
+├── blinky_gcc_nrf52.ld
+├── main.c
+├── Makefile
+├── sdk_config.h
+└── include
+    ├── arm_acle.h
+    ├── arm_cmse.h
+    ├── arm_fp16.h
+    ├── arm_neon.h
+    ├── float.h
+    ├── gcov.h
+    ├── iso646.h
+    ├── mmintrin.h
+    ├── stdalign.h
+    ├── stdarg.h
+    ├── stdatomic.h
+    ├── stdbool.h
+    ├── stddef.h
+    ├── stdfix.h
+    ├── stdint-gcc.h
+    ├── stdint.h
+    ├── stdnoreturn.h
+    ├── tgmath.h
+    ├── unwind-arm-common.h
+    ├── unwind.h
+    └── varargs.h
 
-    1 directory, 23 files
+    1 directory, 25 files
+```
 
 To do so,
 
 ```
-$ cd SOMEWHERE
-$ mkdir example_blinky
+$ mkdir ~/example_blinky
+$ cd ~/example_blinky
 ```
 
-Scratch files from:
-- ~/nRF5_SDK/examples/peripheral/blinky/
-- ~/nRF5_SDK/examples/peripheral/blinky/pca10040/s132/armgcc
+Scratch below items from each directory to the example_blinky:
+- ~/nRF52_SDK/examples/peripheral/**blinky**/main.c
+- ~/nRF52_SDK/examples/peripheral/**blinky/pca10040/s132/config**/sdk_config.h
+- ~/nRF52_SDK/examples/peripheral/**blinky/pca10040/s132/armgcc**/Makefile
+- ~/nRF52_SDK/examples/peripheral/**blinky/pca10040/s132/armgcc**/blinky_gcc_nrf52.ld
+- All other files in the pca10040 directory can be ignored
 
 The include might be located at 
 - /usr/lib/gcc/arm-none-eabi/7.2.1/include
 
-Also the files are located in:
-- ~/nRF5_SDK/examples/peripheral/blinky/pca10040/blank/armgcc
-- are not really required since those need to be used when SoftDevice is not written.
-
 <br/><br/>
 
-### 2.3 Edit Makefile for the scratched project
+### 2.4 Edit Makefile for the scratched project
 
-To adjust the Makefile for our project, which has the new and simple structure:
+To adjust the **Makefile** for our project, which has the new and simple structure:
 
-* SDK_ROOT := $(HOME)/nRF5_SDK
+* SDK_ROOT := $(HOME)/nRF52_SDK
 * PROJECT_DIR := .
 * For INC_FOLDERS, remove the line for ../config
 * For OPT, Optimization level can be 0 (if you want)
@@ -270,11 +304,14 @@ To adjust the Makefile for our project, which has the new and simple structure:
 And try compiling:
 
 ```
-$ cd THE_PROJECT_DIRECTORY
+$ cd ~/example_blinky
 $ make
+
+...
+DONE nrf52832_xxaa
 ```
 
-Then the _build directory might have some new image files for debug.
+Then the _build directory might have some new image files (hex and bin) for debugging.
 
 
 <br/><br/>
