@@ -58,10 +58,8 @@ $ sudo apt --fix-broken install
 
 ### 1.2 Get ARM-GCC Compiler
 
-ARM provides ARM-GCC compiler
-- [Downloads](https://developer.arm.com/tools-and-software/open-source-software/developer-tools/gnu-toolchain/gnu-rm/downloads)
-
-To install the stable version:
+ARM provides [the ARM-GCC compiler](https://developer.arm.com/tools-and-software/open-source-software/developer-tools/gnu-toolchain/gnu-rm/downloads)
+To install the latest release:
 ```sh
 # Prep the directory
 $ mkdir -p ~/nRF52
