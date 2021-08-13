@@ -8,8 +8,8 @@ If you need/want to have nRF development environment in Linux...
 
 ## Environment
 
-* Ubuntu Linux 18.04 (or later) 64bit
-* nRF52832 DK board
+- Ubuntu x86_64 21.04 (or later) 
+- nRF52832 DK board
 
 <br/><br/>
 
@@ -18,24 +18,21 @@ If you need/want to have nRF development environment in Linux...
 ## Index
 
 1. Getting the SDK and tools
-   - Basic Tools
+   - Get basic tools
    - Get ARM-GCC Compiler
-   - Get nRF SDK
-   - Get nrfjprog and Flash SoftDevice
-   - Get JLink Package (Optional)
-
+   - Get nRF SDK and docs
+   - Get command line JTAG tools
+   - Flash SoftDevice
 2. Building the example
    - Modify Makefile.Posix for SDK
    - Compile an Example
    - Simplify the example
    - Edit Makefile for the simplified project
-
 3. Setting VSCODE as the IDE 
    - Get VSCODE and some extensions
    - Set Tasks.json for make/clean  
    - Set Launch.json for debugging
    - Get Python tools
-
 4. Conclusion
 
 <br/><br/>
@@ -46,16 +43,17 @@ If you need/want to have nRF development environment in Linux...
 
 ### 1.1 Get Basic Tools
 
-```
+Install some packages:
+```sh
 $ sudo apt update
-$ sudo apt install build-essential \
-                    git \
-                    libncurses5 \
-                    gdb-multiarch
+$ sudo apt install -y \
+    git \
+    libncurses5 \
+    gdb-multiarch \
+    build-essential
 ```
 
 If libncurses5 installation fails:
-
 ```
 $ sudo apt --fix-broken install
 ```
@@ -64,35 +62,48 @@ $ sudo apt --fix-broken install
 
 ### 1.2 Get ARM-GCC Compiler
 
+ARM provides ARM-GCC compiler
+- [Downloads](https://developer.arm.com/tools-and-software/open-source-software/developer-tools/gnu-toolchain/gnu-rm/downloads)
+
 To install the stable version:
+```sh
+# Prep the directory
+$ mkdir -p ~/nRF52
+$ cd ~/nRF52
 
-```
-$ sudo apt update
-$ sudo apt install gcc-arm-none-eabi
-$ arm-none-eabi-gcc -v
+# Download and extract
+$ wget https://developer.arm.com/-/media/Files/downloads/gnu-rm/10.3-2021.07/gcc-arm-none-eabi-10.3-2021.07-x86_64-linux.tar.bz2
+$ tar jxf gcc-arm-none-eabi-10.3-2021.07-x86_64-linux.tar.bz2 # take ~30 Sec.
+$ mv gcc-arm-none-eabi-10.3-2021.07 gcc-arm 
+
+# Check
+$ ./gcc-arm/bin/arm-none-eabi-gcc -v
+...
+gcc version 10.3.1 20210621 (release) (GNU Arm Embedded Toolchain 10.3-2021.07) 
 ```
 
-To install the latest version (This may not support Eoan):
-
-```
-$ sudo add-apt-repository ppa:team-gcc-arm-embedded/ppa
-$ sudo apt update
-$ sudo apt install gcc-arm-embedded
-$ arm-none-eabi-gcc -v
+Don't forget adding **~/nRF52/gcc-arm/bin** to your PATH!!
+```sh
+$ echo "export PATH=$PATH:$HOME/nRF52/gcc-arm/bin" >> ~/.bashrc
 ```
 
 <br/><br/>
 
-### 1.3 Get nRF SDK
+### 1.3 Get nRF52 SDK and documents
 
-Download the compressed file from:
--  [https://developer.nordicsemi.com/nRF51_SDK/nRF5_SDK_v16.x.x/](https://developer.nordicsemi.com/nRF51_SDK/nRF5_SDK_v16.x.x/)
-
-I downloaded **nRF5_SDK_16.0.0_98a08e2.zip** and uncompressed the file:
-
+Download the SDK and install:
+```sh
+$ cd ~/nRF52
+$ wget https://developer.nordicsemi.com/nRF51_SDK/nRF5_SDK_v17.x.x/nRF5_SDK_17.0.2_d674dde.zip
+$ unzip nRF5_SDK_17*.zip
+$ mv nRF5_SDK_17.0.2_d674dde nRF5_SDK
 ```
-$ mkdir ~/nRF52_SDK
-$ unzip nRF5_SDK_16.0.0_98a08e2.zip -d ~/nRF52_SDK
+
+Downloads the documents and install:
+```sh
+$ cd ~/nRF52
+$ wget https://developer.nordicsemi.com/nRF51_SDK/nRF5_SDK_v17.x.x/nRF5_SDK_17.0.2_offline_doc.zip
+$ unzip nRF5_*doc.zip -d docs
 ```
 
 <br/><br/>
@@ -103,83 +114,41 @@ Download **nRF5x-Command-Line-Tools** for Linux 64 bit from:
 - [https://www.nordicsemi.com](https://www.nordicsemi.com/Software-and-tools/Development-Tools/nRF-Command-Line-Tools/Download#infotabs)
 
 Run these commands to install the tools:
+```sh
+$ cd ~/nRF52
+$ wget https://www.nordicsemi.com/-/media/Software-and-other-downloads/Desktop-software/nRF-command-line-tools/sw/Versions-10-x-x/10-13-0/nRF-Command-Line-Tools_10_13_0_Linux64.zip
+$ unzip nRF-Command-Line-Tools_10_13_0_Linux-amd64.zip -d tools
 
-```
-$ tar xvf nRF-Command-Line-Tools_10_4_1_Linux-amd64.tar.gz
-$ sudo dpkg -i JLink_Linux_V650b_x86_64.deb
-$ sudo dpkg -i nRF-Command-Line-Tools_10_4_1_Linux-amd64.deb
+$ cd tools/nRF-Command-Line-Tools_10_13_0_Linux64
+$ tar xvf nRF-Command-Line-Tools_10_13_0_Linux-amd64.tar.gz 
+$ sudo dpkg -i JLink_Linux_V750b_x86_64.deb
+$ sudo dpkg -i nRF-Command-Line-Tools_10_13_0_Linux-amd64.deb
 ```
 
 To check the version of installed tools:
-
-```
+```sh
 $ nrfjprog -v
-
-nrfjprog version: 10.4.1 
-JLinkARM.dll version: 6.50b
+nrfjprog version: 10.13.0 
+JLinkARM.dll version: 7.50a
 
 $ mergehex -v
-
-mergehex version: 10.4.1
+mergehex version: 10.13.0
 
 $ JLinkExe -v
-
-SEGGER J-Link Commander V6.50b (Compiled Sep  6 2019 17:46:52)
-DLL version V6.50b, compiled Sep  6 2019 17:46:40
-
-Unknown command line option -h. (<= Don't worry about this)
+SEGGER J-Link Commander V7.50a (Compiled Jul  8 2021 18:21:10)
+DLL version V7.50a, compiled Jul  8 2021 18:20:53
 ```
 
-To flash a softdevice to a connected nRF board via JLink,
+### 1.5 Flash SoftDevice
 
-```
-$ cd ~/nRF52_SDK/components/softdevice/s132/hex
-$ ls
+To flash a softdevice to a connected nRF52832-DK (s132) board via JLink,
+```sh
+$ cd ~/nRF52/nRF52_SDK/components/softdevice/s132/hex
+$ ls -l
+s132_nrf52_7.2.0_licence-agreement.txt
+s132_nrf52_7.2.0_softdevice.hex
 
-s132_nrf52_7.0.1_licence-agreement.txt  
-s132_nrf52_7.0.1_softdevice.hex
-
-$ nrfjprog -f NRF52 --program s132_nrf52_7.0.1_softdevice.hex --chiperase
-```
-
-<br/><br/>
-
-### 1.5 Get JLink Package (Optional)
-
-If Nordic's command line tool doesn't include the JLink package, follow below steps.
-
-Download **J-Link Software and Documentation pack for Linux, DEB Installer, 64-bit** from [https://www.segger.com/downloads/jlink/\#J-LinkSoftwareAndDocumentationPack](https://www.segger.com/downloads/jlink/#J-LinkSoftwareAndDocumentationPack)
-
-Currently the version is 6.54c:
-
-```
-$ sudo dpkg -i JLink_Linux_V654c_x86_64.deb
-```
-
-To test it, connect your eval board or JLink to your PC and...
-
-```
-$ JLinkExe -device nrf52 -speed 1000 -if swd
-```
-
-Then will see:
-
-```
-SEGGER J-Link Commander V6.30a (Compiled Jan 31 2018 18:14:21)
-DLL version V6.30a, compiled Jan 31 2018 18:14:14
-
-Connecting to J-Link via USB...Updating firmware:  J-Link OB-SAM3U128-V2-NordicSemi compiled Jan 12 2018 16:05:20
-Replacing firmware: J-Link OB-SAM3U128-V2-NordicSemi compiled Jul 24 2017 17:30:12
-Waiting for new firmware to boot
-New firmware booted successfully
-O.K.
-Firmware: J-Link OB-SAM3U128-V2-NordicSemi compiled Jan 12 2018 16:05:20
-Hardware version: V1.00
-S/N: XXXXXXXXX
-VTref = 3.300V
-
-> connect
-> exit
+$ nrfjprog -f NRF52 --chiperase --program s132_nrf52_7.2.0_softdevice.hex 
 ```
 
 <br/><br/>
@@ -191,30 +160,25 @@ VTref = 3.300V
 ### 2.1 Modify Makefile.Posix for SDK
 
 Get the information of the installed compiler:
-
-```
+```sh
 $ which arm-none-eabi-gcc
-
-/usr/bin/arm-none-eabi-gcc
+$HOME/nRF52/gcc-arm/bin/arm-none-eabi-gcc
 
 $ arm-none-eabi-gcc -v
-
 ...
-gcc version 7.3.1 20180622 (release) [ARM/embedded-7-branch revision 261907] (15:7-2018-q2-6) 
+gcc version 10.3.1 20210621 (release) (GNU Arm Embedded Toolchain 10.3-2021.07) 
 ```
 
 Edit Makefile:
-
-```
-$ cd ~/nRF52_SDK/components/toolchain/gcc
+```sh
+$ cd ~/nRF52/nRF52_SDK/components/toolchain/gcc
 $ vi Makefile.posix
 ```
 
-Then make the file looks like based on the information we got:
-
-```
-GNU_INSTALL_ROOT ?= /usr/bin/
-GNU_VERSION ?= 7.2.1
+Then edit the Makefile looks like based on the information we got:
+```Makefile
+GNU_INSTALL_ROOT ?= ${HOME}/nRF52/gcc-arm/bin/
+GNU_VERSION ?= 10.3.1
 GNU_PREFIX ?= arm-none-eabi
 ```
 
@@ -222,17 +186,14 @@ GNU_PREFIX ?= arm-none-eabi
 
 ### 2.2 Compile an Example
 
-Now we can just compile an example.
-
-```
-$ cd ~/nRF52_SDK/examples/peripheral/blinky/pca10040/s132/armgcc
-$ ls 
-
+Now we can just compile an example:
+```sh
+$ cd ~/nRF52/nRF52_SDK/examples/peripheral/blinky/pca10040/s132/armgcc
+$ ls -l
 blinky_gcc_nrf52.ld 
 Makefile
 
 $ make
-
 ...
 DONE nrf52832_xxaa
 ```
@@ -241,9 +202,9 @@ DONE nrf52832_xxaa
 
 ### 2.3 Simplify the example
 
-However, it is highly recommended to scratch to make a slim project structure like this:
-
+nRF52 SDK comes with well organized files, but sometimes simplifying project hierarchy might be a good idea. 
 ```
+$ cd $HOME/nRF52/nRF5_SDK/examples/peripheral/blinky
 $ tree 
 .
 ├── blinky_gcc_nrf52.ld
@@ -284,14 +245,14 @@ $ cd ~/example_blinky
 ```
 
 Scratch below items from each directory to the example_blinky:
-- ~/nRF52_SDK/examples/peripheral/**blinky**/main.c
-- ~/nRF52_SDK/examples/peripheral/**blinky/pca10040/s132/config**/sdk_config.h
-- ~/nRF52_SDK/examples/peripheral/**blinky/pca10040/s132/armgcc**/Makefile
-- ~/nRF52_SDK/examples/peripheral/**blinky/pca10040/s132/armgcc**/blinky_gcc_nrf52.ld
+- ~/nRF52/nRF52_SDK/examples/peripheral/**blinky**/main.c
+- ~/nRF52/nRF52_SDK/examples/peripheral/**blinky/pca10040/s132/config**/sdk_config.h
+- ~/nRF52/nRF52_SDK/examples/peripheral/**blinky/pca10040/s132/armgcc**/Makefile
+- ~/nRF52/nRF52_SDK/examples/peripheral/**blinky/pca10040/s132/armgcc**/blinky_gcc_nrf52.ld
 - All other files in the pca10040 directory can be ignored
 
-The include might be located at 
-- /usr/lib/gcc/arm-none-eabi/7.2.1/include
+The include files might be located at 
+- $HOME/nRF52/gcc-arm/arm-none-eabi/include
 
 <br/><br/>
 
@@ -299,7 +260,7 @@ The include might be located at
 
 To adjust the **Makefile** for our project, which has the new and simple structure:
 
-* SDK_ROOT := $(HOME)/nRF52_SDK
+* SDK_ROOT := $(HOME)/nRF52/nRF52_SDK
 * PROJECT_DIR := .
 * For INC_FOLDERS, remove the line of ../config
 * For OPT, Optimization level can be 0 (if you want)
@@ -388,7 +349,7 @@ By filling the json file, we can invoke make and make clean with shortcuts.
 With this configuration, we can use **CTRL+SHIFT+B** to open the task dialog and run make or clean.  
   
 The detail can be found from MS' document:
-- [building-your-c-application-with-visual-studio-code](https://blogs.msdn.microsoft.com/vcblog/2016/10/24/building-your-c-application-with-visual-studio-code/).
+- [building-your-c-application-with-visual-studio-code](https://devblogs.microsoft.com/cppblog/building-your-c-application-with-visual-studio-code/)
       
 <br/><br/>
 
