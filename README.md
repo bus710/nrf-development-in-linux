@@ -312,7 +312,7 @@ To generate a c_cpp_properties.json,
     "env": {
         "nRF_SDK": "${HOME}/nRF52/nRF5_SDK",
         "GNU_GCC": "${HOME}/nRF52/gcc-arm"
-    }
+    },
     "configurations": [
         {
             "name": "nRF52832 DK",
