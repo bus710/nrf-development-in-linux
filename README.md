@@ -4,40 +4,34 @@ If you need/want to have nRF development environment in Linux...
 
 <br/><br/>
 
----
-
 ## Environment
 
-- Ubuntu x86_64 21.04 (or later) 
+- Ubuntu 21.04 x86_64 
 - nRF52832 DK board
 
 <br/><br/>
 
----
-
 ## Index
 
 1. Getting the SDK and tools
-   - Get basic tools
-   - Get ARM-GCC Compiler
-   - Get nRF SDK and docs
-   - Get command line JTAG tools
-   - Flash SoftDevice
+   - 1.1 Get basic tools
+   - 1.2 Get ARM-GCC Compiler
+   - 1.3 Get nRF SDK and docs
+   - 1.4 Get command line JTAG tools
+   - 1.5 Flash SoftDevice
 2. Building the example
-   - Modify Makefile.Posix for SDK
-   - Compile an Example
-   - Simplify the example
-   - Edit Makefile for the simplified project
+   - 2.1 Modify Makefile.Posix for SDK
+   - 2.2 Compile an Example
+   - 2.3 Simplify the example
+   - 2.4 Edit Makefile for the simplified project
 3. Setting VSCODE as the IDE 
-   - Get VSCODE and some extensions
-   - Set Tasks.json for make/clean  
-   - Set Launch.json for debugging
-   - Get Python tools
+   - 3.1 Get VSCODE and some extensions
+   - 3.2 Set Tasks.json for make/clean  
+   - 3.3 Set Launch.json for debugging
+   - 3.4 Get Python tools
 4. Conclusion
 
 <br/><br/>
-
----
 
 ## 1. Getting the SDK and tools
 
@@ -108,7 +102,7 @@ $ unzip nRF5_*doc.zip -d docs
 
 <br/><br/>
 
-### 1.4 Get nrfjprog and Flash Softdevice
+### 1.4 Get command line JTAG tools
 
 Download **nRF5x-Command-Line-Tools** for Linux 64 bit from:
 - [https://www.nordicsemi.com](https://www.nordicsemi.com/Software-and-tools/Development-Tools/nRF-Command-Line-Tools/Download#infotabs)
@@ -139,6 +133,8 @@ SEGGER J-Link Commander V7.50a (Compiled Jul  8 2021 18:21:10)
 DLL version V7.50a, compiled Jul  8 2021 18:20:53
 ```
 
+<br/><br/>
+
 ### 1.5 Flash SoftDevice
 
 To flash a softdevice to a connected nRF52832-DK (s132) board via JLink,
@@ -152,8 +148,6 @@ $ nrfjprog -f NRF52 --chiperase --program s132_nrf52_7.2.0_softdevice.hex
 ```
 
 <br/><br/>
-
----
 
 ## 2. Building the example
   
@@ -277,10 +271,7 @@ DONE nrf52832_xxaa
 
 Then the _build directory might have some image files newly generated (hex and bin) for debugging.
 
-
 <br/><br/>
-
----
 
 ## 3. Setting VSCODE as the IDE 
 
@@ -406,8 +397,6 @@ $ sudo pip install pybluez
 ```
 
 <br/><br/>
-
----
 
 ## 4. Conclusion
 
