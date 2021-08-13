@@ -277,6 +277,10 @@ Then the _build directory might have some image files newly generated (hex and b
 
 ## 3. Setting VSCODE as the IDE 
 
+The details can be found from:
+- [building-your-c-application-with-visual-studio-code](https://devblogs.microsoft.com/cppblog/building-your-c-application-with-visual-studio-code/)
+- [nRF52 development setup on Linux](https://www.irnas.eu/nrf52-development-setup-on-linux/)
+      
 <br/>
 
 ### 3.1 Get VSCODE and some extensions
@@ -285,21 +289,63 @@ Download the installer from:
 - https://code.visualstudio.com/download
 
 Some extensions are required:
-- C/C++
-- C++ Intellisense
-- Cortex-Debug
-- Vim (optional)
+- C/C++ (ms-vscode.cpptools)
+- C++ Intellisense (austin.code-gnu-global)
+- Cortex-Debug (marus25.cortex-debug)
 
 Once VSCODE and the extensions are ready:
-
-```
+```sh
 $ cd example_blinky
 $ code .
 ```
  
 <br/><br/>
 
-### 3.2 Set Tasks.json for make/clean  
+### 3.2 Set C/C++ Intellisense
+
+To generate a c_cpp_properties.json, 
+- Press **CTRL+Shift+P**. 
+- Then run **C/C++: Edit Configuration (JSON)**
+
+```json
+{
+    "env": {
+        "nRF_SDK": "${HOME}/nRF52/nRF5_SDK",
+        "GNU_GCC": "${HOME}/nRF52/gcc-arm"
+    }
+    "configurations": [
+        {
+            "name": "nRF52832 DK",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "${env:GNU_GCC}/arm-none-eabi/include",
+                "${env:nRF_SDK}/modules/**",
+                "${env:nRF_SDK}/components/**"
+            ],
+            "defines": [
+                "BOARD_PCA10040",
+                "CONFIG_GPIO_AS_PINRESET",
+                "INITIALIZE_USER_SECTIONS",
+                "FLOAT_ABI_HARD",
+                "NRF52",
+                "NRF52832_XXAA",
+                "NRF_SD_BLE_API_VERSION=6",
+                "S132",
+                "SOFTDEVICE_PRESENT",
+                "SWI_DISABLE0"
+            ],
+            "cStandard": "c11",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "clang-x64"
+        }
+    ],
+    "version": 4
+}
+```
+
+<br/><br/>
+
+### 3.3 Set Tasks.json for make/clean  
   
 To generate a Tasks.json, 
 - Press **CTRL+Shift+P**. 
@@ -307,8 +353,7 @@ To generate a Tasks.json,
 - Lastly click **Tasks: Configure Task**.
   
 Above action generates a file (Tasks.json) under .vscode.  
-By filling the json file, we can invoke make and make clean with shortcuts.
-  
+By filling the json file, we can invoke make and make clean with shortcuts: 
 ```json
 {
     "version": "2.0.0",
@@ -319,6 +364,10 @@ By filling the json file, we can invoke make and make clean with shortcuts.
             "args": [
                 "VERBOSE=1"
             ],
+            "options": {
+                // This path should point the Makefile location
+                "cwd": "${workspaceFolder}/pca10040/s132/armgcc"
+            },
             "group": {
                 "kind": "build",
                 "isDefault": true
@@ -331,9 +380,60 @@ By filling the json file, we can invoke make and make clean with shortcuts.
             "args": [
                 "clean"
             ],
+            "options": {
+                // This path should point the Makefile location
+                "cwd": "${workspaceFolder}/pca10040/s132/armgcc"
+            },
             "group": {
                 "kind": "build",
                 "isDefault": true
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "flash",
+            "type": "shell",
+            "command": "make flash",
+            "options": {
+                // This path should point the Makefile location
+                "cwd": "${workspaceFolder}/pca10040/s132/armgcc"
+            },
+            "group": "build",
+            "problemMatcher": []
+        },
+        {
+            "label": "flash_softdevice",
+            "type": "shell",
+            "command": "make flash_softdevice",
+            "options": {
+                // This path should point the Makefile location
+                "cwd": "${workspaceFolder}/pca10040/s132/armgcc"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "sdk_config",
+            "type": "shell",
+            "command": "make sdk_config",
+            "options": {
+                // This path should point the Makefile location
+                "cwd": "${workspaceFolder}/pca10040/s132/armgcc"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "serial",
+            "type": "shell",
+            "command": "screen /dev/ttyACM0 115200",
+            "problemMatcher": []
+        },
+        {
+            "label": "erase",
+            "type": "shell",
+            "command": "make erase",
+            "options": {
+                // This path should point the Makefile location
+                "cwd": "${workspaceFolder}/pca10056/s140/armgcc"
             },
             "problemMatcher": []
         }
@@ -343,12 +443,9 @@ By filling the json file, we can invoke make and make clean with shortcuts.
   
 With this configuration, we can use **CTRL+SHIFT+B** to open the task dialog and run make or clean.  
   
-The detail can be found from MS' document:
-- [building-your-c-application-with-visual-studio-code](https://devblogs.microsoft.com/cppblog/building-your-c-application-with-visual-studio-code/)
-      
 <br/><br/>
 
-### 3.3 Set Launch.json for debugging
+### 3.4 Set Launch.json for debugging
   
 To generate a launch.json, 
 - Press **CTRL+Shift+P**. 
@@ -366,13 +463,16 @@ By filling the json file, we can invoke the arm-none-eabi-gdb and JLink GDB serv
             "name": "Cortex Debug",
             "cwd": "${workspaceRoot}",
             "executable": "./_build/nrf52832_xxaa.out",
+            // Or
+            // "executable": "${workspaceFolder}/pca10040/s132/armgcc/_build/nrf52832_xxaa.out",
             "request": "launch",
             "type": "cortex-debug",
             "servertype": "jlink",
             "device": "nrf52",
             "interface": "swd",
-            "armToolchainPath": "/usr/bin",
-            "gdbpath": "/usr/bin/gdb-multiarch"
+            // Only absolute path worked for me for some reason...
+            "armToolchainPath": "/home/bus710/nRF52/gcc-arm/bin/", 
+            "runToMain": true,
         }
     ]
 }
@@ -388,7 +488,7 @@ The detail can be found from the extension's website ([>>>](https://marcelball.c
 
 <br/><br/>
 
-### 3.4 Get Python tools
+### 3.5 Get Python tools
 
 To test nRF fimware there are well known python tools - nrfutil and pybluez.
 
