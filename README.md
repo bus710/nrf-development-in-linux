@@ -35,6 +35,8 @@ If you need/want to have nRF development environment in Linux...
 
 ## 1. Getting the SDK and tools
 
+<br/>
+
 ### 1.1 Get Basic Tools
 
 Install some packages:
@@ -151,6 +153,8 @@ $ nrfjprog -f NRF52 --chiperase --program s132_nrf52_7.2.0_softdevice.hex
 
 ## 2. Building the example
   
+<br/>
+
 ### 2.1 Modify Makefile.Posix for SDK
 
 Get the information of the installed compiler:
@@ -274,6 +278,8 @@ Then the _build directory might have some image files newly generated (hex and b
 <br/><br/>
 
 ## 3. Setting VSCODE as the IDE 
+
+<br/>
 
 ### 3.1 Get VSCODE and some extensions
 
