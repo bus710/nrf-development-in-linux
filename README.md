@@ -50,7 +50,7 @@ $ sudo apt install -y \
 ```
 
 If libncurses5 installation fails:
-```
+```sh
 $ sudo apt --fix-broken install
 ```
 
