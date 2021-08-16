@@ -1,0 +1,84 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "make",
+            "command": "make",
+            "args": [
+                "VERBOSE=1"
+            ],
+            "options": {
+                // This path should point the Makefile location
+                "cwd": "${workspaceFolder}"
+            },
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "clean",
+            "command": "make",
+            "args": [
+                "clean"
+            ],
+            "options": {
+                // This path should point the Makefile location
+                "cwd": "${workspaceFolder}"
+            },
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "flash",
+            "type": "shell",
+            "command": "make flash",
+            "options": {
+                // This path should point the Makefile location
+                "cwd": "${workspaceFolder}"
+            },
+            "group": "build",
+            "problemMatcher": []
+        },
+        {
+            "label": "flash_softdevice",
+            "type": "shell",
+            "command": "make flash_softdevice",
+            "options": {
+                // This path should point the Makefile location
+                "cwd": "${workspaceFolder}/"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "sdk_config",
+            "type": "shell",
+            "command": "make sdk_config",
+            "options": {
+                // This path should point the Makefile location
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "serial",
+            "type": "shell",
+            "command": "screen /dev/ttyACM0 115200",
+            "problemMatcher": []
+        },
+        {
+            "label": "erase",
+            "type": "shell",
+            "command": "make erase",
+            "options": {
+                // This path should point the Makefile location
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": []
+        }
+    ]
+}

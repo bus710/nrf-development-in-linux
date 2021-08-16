@@ -16,3 +16,4 @@ _book
 *.pdf
 
 **/_build
+*.log
