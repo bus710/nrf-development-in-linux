@@ -271,7 +271,7 @@ $ make
 DONE nrf52832_xxaa
 ```
 
-Then the _build directory might have some image files newly generated (hex and bin) for debugging.
+Then the "_build" directory might have some image files newly generated (hex and bin) for debugging.
 
 <br/><br/>
 
@@ -288,9 +288,8 @@ The details can be found from:
 Download the installer from:
 - https://code.visualstudio.com/download
 
-Some extensions are required:
+Some extensions are required as well:
 - C/C++ (ms-vscode.cpptools)
-- C++ Intellisense (austin.code-gnu-global)
 - Cortex-Debug (marus25.cortex-debug)
 
 Once VSCODE and the extensions are ready:
@@ -336,7 +335,7 @@ To generate a c_cpp_properties.json,
             ],
             "cStandard": "c11",
             "cppStandard": "c++17",
-            "intelliSenseMode": "clang-x64"
+            "intelliSenseMode": "linux-gcc-arm"
         }
     ],
     "version": 4

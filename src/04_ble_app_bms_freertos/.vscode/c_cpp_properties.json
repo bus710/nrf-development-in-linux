@@ -10,6 +10,7 @@
             "includePath": [
                 "${workspaceFolder}/**",
                 "${workspaceFolder}/config/**",
+                "${workspaceFolder}/app/**",
                 "${env:GNU_GCC}/arm-none-eabi/include/**",
                 "${env:nRF_SDK}/modules/**",
                 "${env:nRF_SDK}/components/**",
@@ -31,8 +32,7 @@
             ],
             "cStandard": "c11",
             "cppStandard": "c++17",
-            "intelliSenseMode": "linux-gcc-arm",
-            "configurationProvider": "ms-vscode.makefile-tools"
+            "intelliSenseMode": "linux-gcc-arm"
         }
     ],
     "version": 4
