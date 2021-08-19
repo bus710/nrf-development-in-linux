@@ -1,6 +1,6 @@
 #include "system.h"
 
-static uint16_t m_conn_handle = BLE_CONN_HANDLE_INVALID;    //!< Handle of the current connection.
+static uint16_t m_conn_handle = BLE_CONN_HANDLE_INVALID; //!< Handle of the current connection.
 
 /**@brief Function for putting the chip into sleep mode.
  *
@@ -48,10 +48,7 @@ void bsp_event_handler(bsp_event_t event)
     }
 }
 
-
-
-/**@brief Function for initializing the nrf log module.
- */
+// Function for initializing the nrf log module.
 void log_init(void)
 {
     ret_code_t err_code = NRF_LOG_INIT(NULL);
@@ -99,4 +96,3 @@ void power_management_init(void)
     err_code = nrf_pwr_mgmt_init();
     APP_ERROR_CHECK(err_code);
 }
-
