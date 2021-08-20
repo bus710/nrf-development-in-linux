@@ -1,0 +1,11 @@
+{
+    "makefile.extensionOutputFolder": "./.vscode",
+    "files.associations": {
+        "bsp_btn_ble.h": "c",
+        "nrf.h": "c",
+        "stdint.h": "c",
+        "string.h": "c",
+        "nrf_log_default_backends.h": "c",
+        "system.h": "c"
+    }
+}

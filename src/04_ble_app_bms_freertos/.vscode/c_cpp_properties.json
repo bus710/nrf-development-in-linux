@@ -1,0 +1,39 @@
+{
+    "env": {
+        "nRF_SDK": "${HOME}/nRF52/nRF5_SDK",
+        "GNU_GCC": "${HOME}/nRF52/gcc-arm"
+    },
+    "configurations": [
+        {
+            "name": "nRF52832 DK",
+            "compilerPath": "${GNU_GCC}/bin/arm-none-eabi-gcc",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "${workspaceFolder}/config/**",
+                "${workspaceFolder}/app/**",
+                "${env:GNU_GCC}/arm-none-eabi/include/**",
+                "${env:nRF_SDK}/modules/**",
+                "${env:nRF_SDK}/components/**",
+                "${env:nRF_SDK}/external/freertos/source/**",
+                "${env:nRF_SDK}/external/freertos/source/include/**",
+                "${env:nRF_SDK}/integration/nrfx/legacy/**"
+            ],
+            "defines": [
+                "BOARD_PCA10040",
+                "CONFIG_GPIO_AS_PINRESET",
+                "INITIALIZE_USER_SECTIONS",
+                "FLOAT_ABI_HARD",
+                "NRF52",
+                "NRF52832_XXAA",
+                "NRF_SD_BLE_API_VERSION=6",
+                "S132",
+                "SOFTDEVICE_PRESENT",
+                "SWI_DISABLE0"
+            ],
+            "cStandard": "c11",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "linux-gcc-arm"
+        }
+    ],
+    "version": 4
+}
