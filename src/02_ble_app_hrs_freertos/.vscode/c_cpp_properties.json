@@ -15,6 +15,8 @@
                 "${env:nRF_SDK}/components/**",
                 "${env:nRF_SDK}/external/freertos/source/**",
                 "${env:nRF_SDK}/external/freertos/source/include/**",
+                "${env:nRF_SDK}/external/freertos/portable/GCC/nrf52/**",
+                "${env:nRF_SDK}/external/freertos/portable/CMSIS/nrf52/**",
                 "${env:nRF_SDK}/integration/nrfx/legacy/**"
             ],
             "defines": [

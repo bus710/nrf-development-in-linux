@@ -171,6 +171,7 @@ INC_FOLDERS += \
   $(SDK_ROOT)/external/freertos/config \
   $(SDK_ROOT)/components/libraries/util \
   $(SDK_ROOT)/external/freertos/portable/CMSIS/nrf52 \
+  $(SDK_ROOT)/external/freertos/portable/GCC/nrf52 \
   ./config \
   $(SDK_ROOT)/components/libraries/usbd/class/cdc \
   $(SDK_ROOT)/components/libraries/csense \

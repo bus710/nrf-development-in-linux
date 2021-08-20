@@ -1,3 +1,8 @@
 {
-    "makefile.extensionOutputFolder": "./.vscode"
+    "makefile.extensionOutputFolder": "./.vscode",
+    "files.associations": {
+        "system.h": "c",
+        "freertos.h": "c",
+        "portable.h": "c"
+    }
 }
