@@ -35,8 +35,6 @@
 #include "nrf_log_ctrl.h"
 #include "nrf_log_default_backends.h"
 
-
-
 #define DEVICE_NAME "Nordic_HRM"                /**< Name of device. Will be included in the advertising data. */
 #define MANUFACTURER_NAME "NordicSemiconductor" /**< Manufacturer. Will be passed to Device Information Service. */
 
@@ -84,8 +82,6 @@
 #define DEAD_BEEF 0xDEADBEEF /**< Value used as error code on stack dump, can be used to identify stack location on stack unwind. */
 
 #define OSTIMER_WAIT_FOR_QUEUE 2 /**< Number of ticks to wait for the timer queue to be ready */
-
-
 
 BLE_BAS_DEF(m_bas);                 /**< Battery service instance. */
 BLE_HRS_DEF(m_hrs);                 /**< Heart rate service instance. */

@@ -1,3 +1,4 @@
+
 #include "system.h"
 #include "bluetooth.h"
 
@@ -14,19 +15,27 @@ static sensorsim_state_t m_heart_rate_sim_state;  /**< Heart Rate sensor simulat
 static sensorsim_cfg_t m_rr_interval_sim_cfg;     /**< RR Interval sensor simulator configuration. */
 static sensorsim_state_t m_rr_interval_sim_state; /**< RR Interval sensor simulator state. */
 
-#if NRF_LOG_ENABLED
-TaskHandle_t m_logger_thread; /**< Definition of Logger thread. */
-#endif
-
-/**@brief A function which is hooked to idle task.
- * @note Idle hook must be enabled in FreeRTOS configuration (configUSE_IDLE_HOOK).
+/**@brief Function for putting the chip into sleep mode.
+ *
+ * @note This function will not return.
  */
-void vApplicationIdleHook(void)
+void sleep_mode_enter(void)
 {
-#if NRF_LOG_ENABLED
-    vTaskResume(m_logger_thread);
-#endif
+    ret_code_t err_code;
+
+    err_code = bsp_indication_set(BSP_INDICATE_IDLE);
+    APP_ERROR_CHECK(err_code);
+
+    // Prepare wakeup buttons.
+    err_code = bsp_btn_ble_sleep_mode_prepare();
+    APP_ERROR_CHECK(err_code);
+
+    // Go to system-off mode (this function will not return; wakeup will cause a reset).
+    err_code = sd_power_system_off();
+    APP_ERROR_CHECK(err_code);
 }
+
+
 
 /**@brief Function for performing battery measurement and updating the Battery Level characteristic
  *        in Battery Service.
@@ -72,29 +81,29 @@ void battery_level_meas_timeout_handler(TimerHandle_t xTimer)
  */
 void heart_rate_meas_timeout_handler(TimerHandle_t xTimer)
 {
-    static uint32_t cnt = 0;
-    ret_code_t err_code;
-    uint16_t heart_rate;
+    // static uint32_t cnt = 0;
+    // ret_code_t err_code;
+    // uint16_t heart_rate;
 
-    UNUSED_PARAMETER(xTimer);
+    // UNUSED_PARAMETER(xTimer);
 
-    heart_rate = (uint16_t)sensorsim_measure(&m_heart_rate_sim_state, &m_heart_rate_sim_cfg);
+    // heart_rate = (uint16_t)sensorsim_measure(&m_heart_rate_sim_state, &m_heart_rate_sim_cfg);
 
-    cnt++;
-    err_code = ble_hrs_heart_rate_measurement_send(&m_hrs, heart_rate);
-    if ((err_code != NRF_SUCCESS) &&
-        (err_code != NRF_ERROR_INVALID_STATE) &&
-        (err_code != NRF_ERROR_RESOURCES) &&
-        (err_code != NRF_ERROR_BUSY) &&
-        (err_code != BLE_ERROR_GATTS_SYS_ATTR_MISSING))
-    {
-        APP_ERROR_HANDLER(err_code);
-    }
+    // cnt++;
+    // err_code = ble_hrs_heart_rate_measurement_send(&m_hrs, heart_rate);
+    // if ((err_code != NRF_SUCCESS) &&
+    //     (err_code != NRF_ERROR_INVALID_STATE) &&
+    //     (err_code != NRF_ERROR_RESOURCES) &&
+    //     (err_code != NRF_ERROR_BUSY) &&
+    //     (err_code != BLE_ERROR_GATTS_SYS_ATTR_MISSING))
+    // {
+    //     APP_ERROR_HANDLER(err_code);
+    // }
 
     // Disable RR Interval recording every third heart rate measurement.
     // NOTE: An application will normally not do this. It is done here just for testing generation
     // of messages without RR Interval measurements.
-    m_rr_interval_enabled = ((cnt % 3) != 0);
+    // m_rr_interval_enabled = ((cnt % 3) != 0);
 }
 
 /**@brief Function for handling the RR interval timer time-out.
@@ -250,28 +259,6 @@ void buttons_leds_init(bool *p_erase_bonds)
 
     *p_erase_bonds = (startup_event == BSP_EVENT_CLEAR_BONDING_DATA);
 }
-
-#if NRF_LOG_ENABLED
-/**@brief Thread for handling the logger.
- *
- * @details This thread is responsible for processing log entries if logs are deferred.
- *          Thread flushes all log entries and suspends. It is resumed by idle task hook.
- *
- * @param[in]   arg   Pointer used for passing some arbitrary information (context) from the
- *                    osThreadCreate() call to the thread.
- */
-void logger_thread(void *arg)
-{
-    UNUSED_PARAMETER(arg);
-
-    while (1)
-    {
-        NRF_LOG_FLUSH();
-
-        vTaskSuspend(NULL); // Suspend myself
-    }
-}
-#endif //NRF_LOG_ENABLED
 
 /**@brief Function for initializing the clock.
  */

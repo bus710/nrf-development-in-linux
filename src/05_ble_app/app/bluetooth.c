@@ -1,10 +1,12 @@
+
+#include "system.h"
 #include "bluetooth.h"
 
 TimerHandle_t m_battery_timer;        /**< Definition of battery timer. */
 TimerHandle_t m_heart_rate_timer;     /**< Definition of heart rate timer. */
 TimerHandle_t m_rr_interval_timer;    /**< Definition of RR interval timer. */
 TimerHandle_t m_sensor_contact_timer; /**< Definition of sensor contact detected timer. */
-bool m_rr_interval_enabled = true;                /**< Flag for enabling and disabling the registration of new RR interval measurements (the purpose of disabling this is just to test sending HRM without RR interval data. */
+bool m_rr_interval_enabled = true;    /**< Flag for enabling and disabling the registration of new RR interval measurements (the purpose of disabling this is just to test sending HRM without RR interval data. */
 
 static uint16_t m_conn_handle = BLE_CONN_HANDLE_INVALID; /**< Handle of the current connection. */
 
@@ -13,8 +15,6 @@ static ble_uuid_t m_adv_uuids[] = /**< Universally unique service identifiers. *
         {BLE_UUID_HEART_RATE_SERVICE, BLE_UUID_TYPE_BLE},
         {BLE_UUID_BATTERY_SERVICE, BLE_UUID_TYPE_BLE},
         {BLE_UUID_DEVICE_INFORMATION_SERVICE, BLE_UUID_TYPE_BLE}};
-
-void advertising_start(void *p_erase_bonds);
 
 /**@brief Callback function for asserts in the SoftDevice.
  *
@@ -215,26 +215,6 @@ void conn_params_init(void)
     cp_init.error_handler = conn_params_error_handler;
 
     err_code = ble_conn_params_init(&cp_init);
-    APP_ERROR_CHECK(err_code);
-}
-
-/**@brief Function for putting the chip into sleep mode.
- *
- * @note This function will not return.
- */
-static void sleep_mode_enter(void)
-{
-    ret_code_t err_code;
-
-    err_code = bsp_indication_set(BSP_INDICATE_IDLE);
-    APP_ERROR_CHECK(err_code);
-
-    // Prepare wakeup buttons.
-    err_code = bsp_btn_ble_sleep_mode_prepare();
-    APP_ERROR_CHECK(err_code);
-
-    // Go to system-off mode (this function will not return; wakeup will cause a reset).
-    err_code = sd_power_system_off();
     APP_ERROR_CHECK(err_code);
 }
 
@@ -473,4 +453,3 @@ void advertising_start(void *p_erase_bonds)
         APP_ERROR_CHECK(err_code);
     }
 }
-
